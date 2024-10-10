@@ -11,6 +11,7 @@
 	<groupId>org.gamed</groupId>
 	<artifactId>Gamed</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging> 
 	<name>Gamed</name>
 	<description>Gamed</description>
 
