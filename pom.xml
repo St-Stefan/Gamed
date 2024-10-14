@@ -37,5 +37,8 @@
 		<module>ReviewWriterService</module>
 		<module>RecommenderService</module>
 		<module>SearchService</module>
+		<module>UserDatabaseService</module>
+		<module>ReviewDatabaseService</module>
+		<module>GameListDatabaseService</module>
 	</modules>
 </project>
