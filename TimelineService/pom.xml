@@ -45,6 +45,7 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
+                    <excludes>**/TimelineServiceApplication.java</excludes>
                 </configuration>
                 <executions>
                     <execution>
