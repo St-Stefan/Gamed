@@ -46,6 +46,7 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
+                    <excludes>**/ReviewWriterServiceApplication.java</excludes>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,4 +1,4 @@
-package com.example.reviewwriterservice;
+package org.gamed.reviewwriterservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

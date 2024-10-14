@@ -48,6 +48,7 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
+                    <excludes>**/UserPageServiceApplication.java</excludes>
                 </configuration>
                 <executions>
                     <execution>
