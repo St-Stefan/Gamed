@@ -6,23 +6,28 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="GameListDatabaseService" />
+        <module name="SearchService" />
         <module name="TimelineService" />
+        <module name="ReviewDatabaseService" />
+        <module name="UserDatabaseService" />
         <module name="UserPageService" />
         <module name="RecommenderService" />
-        <module name="BackendMicroservice" />
         <module name="ReviewWriterService" />
-        <module name="SearchService" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="BackendMicroservice" options="-parameters" />
-      <module name="Gamed" options="-parameters" />
+      <module name="GameListDatabaseService" options="-parameters" />
+      <module name="Gamed" options="" />
       <module name="RecommenderService" options="-parameters" />
+      <module name="ReviewDatabaseService" options="-parameters" />
       <module name="ReviewWriterService" options="-parameters" />
       <module name="SearchService" options="-parameters" />
       <module name="TimelineService" options="-parameters" />
+      <module name="UserDatabaseService" options="-parameters" />
       <module name="UserPageService" options="-parameters" />
     </option>
   </component>
