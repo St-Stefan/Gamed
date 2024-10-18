@@ -4,20 +4,26 @@ import org.gamed.userdatabaseservice.domain.User;
 import org.gamed.userdatabaseservice.domain.UserToFollowedList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface UserToFollowedListRepository extends JpaRepository<UserToFollowedList, String> {
-    List<UserToFollowedList> findByUserId(String user_id);
+    @Query("SELECT u FROM UserToFollowedList u WHERE u.user.id = :user_id")
+    List<UserToFollowedList> findByUserId(@Param("user_id") String user_id);
 
     @Query("SELECT u FROM UserToFollowedList u WHERE u.user = :user AND u.list_id = :list_id")
     Optional<UserToFollowedList> findByUserAndListId(User user, String list_id);
 
-    List<UserToFollowedList> findByListId(String list_id);
+    @Query("SELECT u FROM UserToFollowedList u WHERE u.list_id = :list_id")
+    List<UserToFollowedList> findByListId(@Param("list_id") String list_id);
 
-    List<UserToFollowedList> findByTimeAfter(LocalDateTime time);
+    @Query("SELECT u FROM UserToFollowedList u WHERE u.time > :time")
+    List<UserToFollowedList> findByTimeAfter(@Param("time") LocalDateTime time);
 
-    Long countByListId(String list_id);
+    @Query("SELECT COUNT(u) FROM UserToFollowedList u WHERE u.list_id = :list_id")
+    Long countByListId(@Param("list_id") String list_id);
+
 }

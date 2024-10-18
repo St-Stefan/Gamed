@@ -31,17 +31,21 @@ public class UserController {
      * @param request  the data the caller must provide in order to create a user
      * @return the ID of the newly created user
      */
-    @PostMapping("/create/")
+    @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody CreateAndUpdateUserRequestModel request) {
         try {
-            // Ensure that the username does not already exist in the system
             if (userService.userExistsByEmail(request.getEmail())) {
-                throw new Exception("Username already exists.");
+                throw new IllegalArgumentException("Email already exists.");
             }
-            // Create the user
-            User newUser =new User(request.getUsername(), request.getEmail(), request.getPwdHash(), request.isDeveloper(), request.isPremium());
+            User newUser = userService.createUser(
+                    request.getUsername(),
+                    request.getEmail(),
+                    request.getPwdHash(),
+                    request.isDeveloper(),
+                    request.isPremium()
+            );
             return ResponseEntity.ok(newUser.getId());
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }

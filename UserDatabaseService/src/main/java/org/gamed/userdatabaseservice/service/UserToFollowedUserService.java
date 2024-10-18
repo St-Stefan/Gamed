@@ -62,7 +62,7 @@ public class UserToFollowedUserService {
     public List<User> getFollowers(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        return followedUserRepository.findFollowers(user);
+        return followedUserRepository.findFollowers(user.getId());
     }
 
     /**
