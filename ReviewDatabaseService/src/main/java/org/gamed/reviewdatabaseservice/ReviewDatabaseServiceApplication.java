@@ -1,4 +1,4 @@
-package org.gamed.reviewdatabaseserviceapplication;
+package org.gamed.reviewdatabaseservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
