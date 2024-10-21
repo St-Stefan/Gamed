@@ -2,14 +2,15 @@ package org.gamed.userpageservice.domain;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.gamed.userpageservice.domain.DTOs.UserDTO;
 
 @Getter
 @ToString
 public class UserPage {
-    private User user;
+    private UserDTO userDTO;
 
-    public UserPage(User user) {
-        this.user = user;
+    public UserPage(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
 
