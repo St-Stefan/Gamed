@@ -25,12 +25,21 @@
             </a>
           </li>
           <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li @click="clearStorage()"><a>Logout</a></li>
         </ul>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<script>
+export default {
+    methods:{
+        clearStorage(){
+            localStorage.removeItem("GamedUID")
+            this.$emit('uidChanged');
+        }
+    }
+}
+
+</script>

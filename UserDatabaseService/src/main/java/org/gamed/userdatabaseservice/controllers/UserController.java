@@ -31,6 +31,8 @@ public class UserController {
      * @param request  the data the caller must provide in order to create a user
      * @return the ID of the newly created user
      */
+
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody CreateAndUpdateUserRequestModel request) {
         try {

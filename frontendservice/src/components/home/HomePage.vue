@@ -4,13 +4,16 @@ import WelcomeItem from "@/components/TopBar.vue";
 import SampleCard from "@/components/ListCard.vue";
 import TopBar from "@/components/TopBar.vue";
 import ListCard from "@/components/ListCard.vue";
+import AuthenticationPage from "@/components/authentication/AuthenticationPage.vue";
 </script>
 
 <template>
+    <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged"/>
+
   <div class="flex flex-col h-screen">
     <div class="flex-1 overflow-y-auto">
       <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
-        <top-bar />
+        <top-bar @uidChanged="onUIDChanged"/>
       </div>
       <div class="flex pl-20 pr-20">
         <div class="w-2/3 flex-none grid place-items-center p-10 gap-10">
@@ -41,6 +44,7 @@ export default {
   data() {
     return {
       posts: [],
+      loadedUID: false,
       loading: true,
       error: null,
     };
@@ -63,6 +67,11 @@ export default {
           this.loading = false;
         });
   },
+  methods:{
+    onUIDChanged(){
+       this.loadedUID = localStorage.getItem("GamedUID")!=null;
+    }
+  }
 };
 </script>
 
