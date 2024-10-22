@@ -47,10 +47,10 @@ public class GameListController {
      * @return HTTP status OK if the operation succeeds
      */
     @PutMapping("/update/{listId}")
-    public HttpStatus updateList(@PathVariable String listId, @RequestBody CreateAndUpdateListRequestModel request) {
+    public ResponseEntity<String> updateList(@PathVariable String listId, @RequestBody CreateAndUpdateListRequestModel request) {
         try {
             gameListService.updateList(listId, request.getName(), request.getUserId());
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -79,10 +79,10 @@ public class GameListController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete/{listId}")
-    public HttpStatus deleteList(@PathVariable String listId) {
+    public ResponseEntity<String> deleteList(@PathVariable String listId) {
         try {
             gameListService.deleteList(listId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

@@ -33,10 +33,10 @@ public class UserToPlaytimeController {
      * @return HTTP status OK if the operation succeeds
      */
     @PostMapping("/record")
-    public HttpStatus recordPlaytime(@RequestParam String userId, @RequestParam String gameId, @RequestParam int playtime) {
+    public ResponseEntity<String> recordPlaytime(@RequestParam String userId, @RequestParam String gameId, @RequestParam int playtime) {
         try {
             playtimeService.createPlaytime(userId, gameId, playtime);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -51,10 +51,10 @@ public class UserToPlaytimeController {
      * @return HTTP status OK if the operation succeeds
      */
     @PutMapping("/update")
-    public HttpStatus updatePlaytime(@RequestParam String userId, @RequestParam String gameId, @RequestParam int playtime) {
+    public ResponseEntity<String> updatePlaytime(@RequestParam String userId, @RequestParam String gameId, @RequestParam int playtime) {
         try {
             playtimeService.updatePlaytime(userId, gameId, playtime);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -101,10 +101,10 @@ public class UserToPlaytimeController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete")
-    public HttpStatus deletePlaytime(@RequestParam String userId, @RequestParam String gameId) {
+    public ResponseEntity<String> deletePlaytime(@RequestParam String userId, @RequestParam String gameId) {
         try {
             playtimeService.deletePlaytime(userId, gameId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

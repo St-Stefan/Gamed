@@ -39,18 +39,6 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime time_modified;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserToPlaytime> playtimes;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserToFollowedUser> followedUsers;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserToFollowedList> followedLists;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserToLike> likes;
-
     public User() {}
 
     public User(String name, String email, String pwd_hash, boolean developer, boolean premium) {
@@ -111,38 +99,6 @@ public class User {
 
     public LocalDateTime getTimeModified() {
         return time_modified;
-    }
-
-    public Set<UserToPlaytime> getPlaytimes() {
-        return playtimes;
-    }
-
-    public void setPlaytimes(Set<UserToPlaytime> playtimes) {
-        this.playtimes = playtimes;
-    }
-
-    public Set<UserToFollowedUser> getFollowedUsers() {
-        return followedUsers;
-    }
-
-    public void setFollowedUsers(Set<UserToFollowedUser> followedUsers) {
-        this.followedUsers = followedUsers;
-    }
-
-    public Set<UserToFollowedList> getFollowedLists() {
-        return followedLists;
-    }
-
-    public void setFollowedLists(Set<UserToFollowedList> followedLists) {
-        this.followedLists = followedLists;
-    }
-
-    public Set<UserToLike> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Set<UserToLike> likes) {
-        this.likes = likes;
     }
 
     // toString method for debugging

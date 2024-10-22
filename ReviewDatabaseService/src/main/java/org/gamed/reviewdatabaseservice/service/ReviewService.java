@@ -24,12 +24,16 @@ public class ReviewService {
      * @param gameId       the id of the Game being reviewed
      * @param description the description of the review
      * @return the newly created Review object
-     * @throws IllegalArgumentException if the description is blank.
+     * @throws IllegalArgumentException if the description is blank, or if the relation already exists.
      */
     public Review createReview(String userId, String gameId, String description)
             throws IllegalArgumentException {
         if (description == null || description.isEmpty()) {
             throw new IllegalArgumentException("Description cannot be blank.");
+        }
+
+        if(reviewRepository.existsByUserIdAndGameId(userId, gameId)) {
+            throw new IllegalArgumentException("Relation already exists.");
         }
 
         Review review = new Review(userId, gameId, description);

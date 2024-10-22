@@ -60,10 +60,10 @@ public class UserController {
      * @return HTTP status OK if the operation succeeds
      */
     @PutMapping("/update/{userId}")
-    public HttpStatus updateUser(@PathVariable String userId, @RequestBody CreateAndUpdateUserRequestModel request) {
+    public ResponseEntity<String> updateUser(@PathVariable String userId, @RequestBody CreateAndUpdateUserRequestModel request) {
         try {
             userService.updateUser(userId, request.getUsername(), request.getEmail(), request.getPwdHash(), request.isDeveloper(), request.isPremium());
-            return HttpStatus.OK;
+            return ResponseEntity.ok("Update successful!");
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -107,10 +107,10 @@ public class UserController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete/{userId}")
-    public HttpStatus deleteUser(@PathVariable String userId) {
+    public ResponseEntity<String> deleteUser(@PathVariable String userId) {
         try {
             userService.deleteUser(userId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok("Delete successful!");
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

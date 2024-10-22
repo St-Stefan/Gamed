@@ -14,9 +14,8 @@ public class UserToFollowedList {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false, updatable = false)
+    private String user_id;
 
     @Column(nullable = false, updatable = false)
     private String list_id;
@@ -27,8 +26,8 @@ public class UserToFollowedList {
 
     public UserToFollowedList() {}
 
-    public UserToFollowedList(User user, String list_id) {
-        this.user = user;
+    public UserToFollowedList(String user_id, String list_id) {
+        this.user_id = user_id;
         this.list_id = list_id;
         this.time = LocalDateTime.now();
     }
@@ -37,8 +36,8 @@ public class UserToFollowedList {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return user_id;
     }
 
     public String getListId() {
@@ -53,7 +52,7 @@ public class UserToFollowedList {
     public String toString() {
         return "UserToFollowedList{" +
                 "id='" + id + '\'' +
-                ", user=" + (user != null ? user.getId() : null) +
+                ", user=" + user_id +
                 ", list_id='" + list_id + '\'' +
                 ", time=" + time +
                 '}';
