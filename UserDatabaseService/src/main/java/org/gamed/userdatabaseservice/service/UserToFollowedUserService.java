@@ -27,13 +27,18 @@ public class UserToFollowedUserService {
      * @param userId        the id of the user who is following
      * @param followedUserId the id of the user being followed
      * @return the newly created UserToFollowedUser object
-     * @throws IllegalArgumentException if the user ids are null.
+     * @throws IllegalArgumentException if the user ids are null, or if the relation already exists.
      */
     public UserToFollowedUser createFollowedUser(String userId, String followedUserId)
             throws IllegalArgumentException {
         if (userId == null || followedUserId == null) {
             throw new IllegalArgumentException("User ids cannot be null.");
         }
+
+        if(isFollowing(userId, followedUserId)) {
+            throw new IllegalArgumentException("Relation already exists.");
+        }
+
         UserToFollowedUser followedUser = new UserToFollowedUser(userId, followedUserId);
         return followedUserRepository.save(followedUser);
     }

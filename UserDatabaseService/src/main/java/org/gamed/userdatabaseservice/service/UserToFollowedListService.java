@@ -14,13 +14,10 @@ import java.util.stream.Collectors;
 @Service
 public class UserToFollowedListService {
     private final UserToFollowedListRepository userToFollowedListRepository;
-    private final UserRepository userRepository;
-
 
     @Autowired
-    public UserToFollowedListService(UserToFollowedListRepository followedListRepository, UserRepository userRepository) {
+    public UserToFollowedListService(UserToFollowedListRepository followedListRepository) {
         this.userToFollowedListRepository = followedListRepository;
-        this.userRepository = userRepository;
     }
 
     /**
@@ -29,12 +26,16 @@ public class UserToFollowedListService {
      * @param user       the user who is following the list
      * @param followedListId the id of the followed list
      * @return the newly created UserToFollowedList object
-     * @throws IllegalArgumentException if the user ids are null.
+     * @throws IllegalArgumentException if the user ids are null, or if the relation already exists.
      */
     public UserToFollowedList createFollowedList(String user, String followedListId)
             throws IllegalArgumentException {
         if (user == null || followedListId == null) {
-            throw new IllegalArgumentException("User ids cannot be null.");
+            throw new IllegalArgumentException("Ids cannot be null.");
+        }
+
+        if(isFollowingList(user, followedListId)) {
+            throw new IllegalArgumentException("Relation already exists.");
         }
 
         UserToFollowedList followedList = new UserToFollowedList(user, followedListId);
@@ -78,7 +79,7 @@ public class UserToFollowedListService {
      * @throws IllegalArgumentException if no UserToFollowedList is found for the given user ID and list ID
      */
     public UserToFollowedList getUserToFollowedList(String userId, String listId) throws IllegalArgumentException {
-        Optional<UserToFollowedList> userToFollowedList = userToFollowedListRepository.findByUserAndListId(userRepository.getUserById(userId), listId);
+        Optional<UserToFollowedList> userToFollowedList = userToFollowedListRepository.findByUserAndListId(userId, listId);
 
         if (userToFollowedList.isPresent()) {
             return userToFollowedList.get();
@@ -96,7 +97,7 @@ public class UserToFollowedListService {
      * @throws IllegalArgumentException if the entry does not exist
      */
     public String getFollowedListId(String userId, String listId) throws IllegalArgumentException {
-        Optional<UserToFollowedList> followedList = userToFollowedListRepository.findByUserAndListId(userRepository.getUserById(userId), listId);
+        Optional<UserToFollowedList> followedList = userToFollowedListRepository.findByUserAndListId(userId, listId);
         if (followedList.isEmpty()) {
             throw new IllegalArgumentException("Followed list entry for the given user and list does not exist.");
         }
@@ -139,7 +140,7 @@ public class UserToFollowedListService {
      * @return true if the user is following the list, false otherwise
      */
     public boolean isFollowingList(String userId, String listId) {
-        return userToFollowedListRepository.findByUserAndListId(userRepository.getUserById(userId), listId).isPresent();
+        return userToFollowedListRepository.findByUserAndListId(userId, listId).isPresent();
     }
 }
 

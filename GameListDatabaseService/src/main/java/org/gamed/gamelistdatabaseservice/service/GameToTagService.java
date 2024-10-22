@@ -27,8 +27,16 @@ public class GameToTagService {
      * @param gameId the id of the game
      * @param tagId  the id of the tag
      * @return the newly created GameToTag object
+     * @throws IllegalArgumentException - when ids are null or the relation already exists
      */
     public GameToTag createGameToTag(String gameId, String tagId) {
+        if(gameId == null || tagId == null) {
+            throw new IllegalArgumentException("Ids cannot be null.");
+        }
+        if(existsByGameIdAndTagId(gameId,tagId)) {
+            throw new IllegalArgumentException("Relation already exists.");
+        }
+
         GameToTag gameToTag = new GameToTag(gameId, tagId);
         return gameToTagRepository.save(gameToTag);
     }

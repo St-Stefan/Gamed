@@ -29,10 +29,19 @@ public class UserToLikeService {
      * @param userId      the id of the user who liked something
      * @param likedItemId the id of the liked item
      * @return the newly created UserToLike object
-     * @throws IllegalArgumentException if the user ids are null.
+     * @throws IllegalArgumentException if the ids are null, or if relation already exists.
      */
     public UserToLike createLike(String userId, String likedItemId, String type) throws IllegalArgumentException {
         UserToLike like = new UserToLike(userId, likedItemId, type);
+
+        if (userId == null || likedItemId == null || type == null) {
+            throw new IllegalArgumentException("User ID, Item ID cannot be null and type cannot be null.");
+        }
+
+        if(isLikingItem(userId, likedItemId)) {
+            throw new IllegalArgumentException("Relation already exists.");
+        }
+
         return likeRepository.save(like);
     }
 
