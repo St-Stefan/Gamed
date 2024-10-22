@@ -24,7 +24,7 @@ public class CommentService {
      * @param parentId    the ID of the parent comment or review (if any)
      * @param description the description of the comment
      * @return the newly created Comment object
-     * @throws IllegalArgumentException if the userId or description is blank, or parentId is invalid.
+     * @throws IllegalArgumentException if the userId or description is blank, or parentId is invalid, or if the relation already exists.
      */
     public Comment createComment(String userId, String parentId, String description)
             throws IllegalArgumentException {
@@ -33,6 +33,10 @@ public class CommentService {
         }
         if (description == null || description.isEmpty()) {
             throw new IllegalArgumentException("Description cannot be blank.");
+        }
+
+        if(commentRepository.existsByUserIdAndParentId(userId, parentId)) {
+            throw new IllegalArgumentException("Relation already exists.");
         }
 
         Comment comment = new Comment(userId, parentId, description);

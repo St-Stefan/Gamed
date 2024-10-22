@@ -42,6 +42,9 @@ public class GameService {
         if (platforms == null || platforms.isEmpty()) {
             throw new IllegalArgumentException("Platforms cannot be blank.");
         }
+        if(gameRepository.existsByName(name)) {
+            throw new IllegalArgumentException("Game already exists.");
+        }
 
         Game game = new Game(name, developer, releaseDate, platforms);
         return gameRepository.save(game);
