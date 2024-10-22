@@ -82,10 +82,10 @@ public class ListToGameController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete/{listToGameId}")
-    public HttpStatus deleteListToGame(@PathVariable String listToGameId) {
+    public ResponseEntity<String> deleteListToGame(@PathVariable String listToGameId) {
         try {
             listToGameService.deleteListToGameById(listToGameId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

@@ -12,18 +12,18 @@ import java.util.Optional;
 @Repository
 public interface UserToPlaytimeRepository extends JpaRepository<UserToPlaytime, String> {
 
-    @Query("SELECT u FROM UserToPlaytime u WHERE u.user.id = :userId")
+    @Query("SELECT u FROM UserToPlaytime u WHERE u.user_id = :userId")
     List<UserToPlaytime> findByUserId(@Param("userId") String userId);
 
     @Query("SELECT u FROM UserToPlaytime u WHERE u.game_id = :gameId")
     List<UserToPlaytime> findByGameId(@Param("gameId") String gameId);
 
-    @Query("SELECT u FROM UserToPlaytime u WHERE u.user.id = :userId AND u.game_id = :gameId")
+    @Query("SELECT u FROM UserToPlaytime u WHERE u.user_id = :userId AND u.game_id = :gameId")
     Optional<UserToPlaytime> findByUserIdAndGameId(@Param("userId") String userId, @Param("gameId") String gameId);
 
-    @Query("SELECT SUM(u.playtime) FROM UserToPlaytime u WHERE u.user.id = :userId")
-    Long getTotalPlaytimeForUser(@Param("userId") String userId);
+    @Query("SELECT SUM(u.playtime) FROM UserToPlaytime u WHERE u.user_id = :userId")
+    Optional<Long> getTotalPlaytimeForUser(@Param("userId") String userId);
 
     @Query("SELECT SUM(u.playtime) FROM UserToPlaytime u WHERE u.game_id = :gameId")
-    Long getTotalPlaytimeForGame(@Param("gameId") String gameId);
+    Optional<Long> getTotalPlaytimeForGame(@Param("gameId") String gameId);
 }

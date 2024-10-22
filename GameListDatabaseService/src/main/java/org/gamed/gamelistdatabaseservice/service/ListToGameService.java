@@ -29,7 +29,7 @@ public class ListToGameService {
      * @return the newly created ListToGame object
      */
     public ListToGame createListToGame(String listId, String gameId) {
-        ListToGame listToGame = new ListToGame(gameListService.getList(listId), gameService.getGame(gameId));
+        ListToGame listToGame = new ListToGame(listId, gameId);
         return listToGameRepository.save(listToGame);
     }
 

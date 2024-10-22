@@ -12,12 +12,9 @@ import java.util.Optional;
 @Service
 public class UserToPlaytimeService {
     private final UserToPlaytimeRepository playtimeRepository;
-    private final UserRepository userRepository;
-
     @Autowired
-    public UserToPlaytimeService(UserToPlaytimeRepository playtimeRepository, UserRepository userRepository) {
+    public UserToPlaytimeService(UserToPlaytimeRepository playtimeRepository) {
         this.playtimeRepository = playtimeRepository;
-        this.userRepository = userRepository;
     }
 
     /**
@@ -34,7 +31,7 @@ public class UserToPlaytimeService {
             throw new IllegalArgumentException("User ID, Game ID cannot be null and playtime cannot be negative.");
         }
 
-        UserToPlaytime playtimeEntry = new UserToPlaytime(userRepository.getUserById(userId), gameId, playtime);
+        UserToPlaytime playtimeEntry = new UserToPlaytime(userId, gameId, playtime);
         return playtimeRepository.save(playtimeEntry);
     }
 

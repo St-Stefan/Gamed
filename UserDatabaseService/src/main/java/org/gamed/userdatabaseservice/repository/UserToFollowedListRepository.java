@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserToFollowedListRepository extends JpaRepository<UserToFollowedList, String> {
-    @Query("SELECT u FROM UserToFollowedList u WHERE u.user.id = :user_id")
+    @Query("SELECT u FROM UserToFollowedList u WHERE u.user_id = :user_id")
     List<UserToFollowedList> findByUserId(@Param("user_id") String user_id);
 
-    @Query("SELECT u FROM UserToFollowedList u WHERE u.user = :user AND u.list_id = :list_id")
-    Optional<UserToFollowedList> findByUserAndListId(User user, String list_id);
+    @Query("SELECT u FROM UserToFollowedList u WHERE u.user_id = :user AND u.list_id = :list_id")
+    Optional<UserToFollowedList> findByUserAndListId(@Param("user") User user, @Param("list_id") String list_id);
+
 
     @Query("SELECT u FROM UserToFollowedList u WHERE u.list_id = :list_id")
     List<UserToFollowedList> findByListId(@Param("list_id") String list_id);
