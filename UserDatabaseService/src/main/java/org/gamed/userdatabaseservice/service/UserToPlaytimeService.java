@@ -24,11 +24,15 @@ public class UserToPlaytimeService {
      * @param gameId     the id of the game
      * @param playtime   the total playtime in hours
      * @return the newly created UserToPlaytime object
-     * @throws IllegalArgumentException if the userId, gameId, or playtime are null or negative.
+     * @throws IllegalArgumentException if the userId, gameId, or playtime are null or negative, or if the relation doesn't exist.
      */
     public UserToPlaytime createPlaytime(String userId, String gameId, int playtime) throws IllegalArgumentException {
         if (userId == null || gameId == null || playtime < 0) {
             throw new IllegalArgumentException("User ID, Game ID cannot be null and playtime cannot be negative.");
+        }
+
+        if(playtimeExists(userId, gameId)) {
+            throw new IllegalArgumentException("Relation already exists.");
         }
 
         UserToPlaytime playtimeEntry = new UserToPlaytime(userId, gameId, playtime);
@@ -115,15 +119,17 @@ public class UserToPlaytimeService {
     }
 
     /**
-     * Deletes a UserToPlaytime by id from the database.
+     * Check if a specific playtime relation exists.
      *
-     * @param id The id of the UserToPlaytime to delete
+     * @param userId The id of the User
+     * @param gameId The id of the Game
      * @throws IllegalArgumentException when the given id does not map to any UserToPlaytime
      */
-    public void deletePlaytime(String id) throws IllegalArgumentException {
-        if (!playtimeRepository.existsById(id)) {
-            throw new IllegalArgumentException("Given UserToPlaytime id does not correspond to any UserToPlaytime. ID: " + id);
+    public boolean playtimeExists(String userId, String gameId) throws IllegalArgumentException {
+        if (userId == null || gameId == null) {
+            throw new IllegalArgumentException("User ID and Game ID cannot be null.");
         }
-        playtimeRepository.deleteById(id);
+
+        return playtimeRepository.findByUserIdAndGameId(userId, gameId).isPresent();
     }
 }

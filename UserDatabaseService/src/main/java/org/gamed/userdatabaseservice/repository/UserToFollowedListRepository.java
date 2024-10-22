@@ -15,7 +15,7 @@ public interface UserToFollowedListRepository extends JpaRepository<UserToFollow
     List<UserToFollowedList> findByUserId(@Param("user_id") String user_id);
 
     @Query("SELECT u FROM UserToFollowedList u WHERE u.user_id = :user AND u.list_id = :list_id")
-    Optional<UserToFollowedList> findByUserAndListId(@Param("user") User user, @Param("list_id") String list_id);
+    Optional<UserToFollowedList> findByUserAndListId(@Param("user") String user, @Param("list_id") String list_id);
 
 
     @Query("SELECT u FROM UserToFollowedList u WHERE u.list_id = :list_id")

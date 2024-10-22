@@ -27,8 +27,16 @@ public class ListToGameService {
      * @param listId id of the list
      * @param gameId id of the game
      * @return the newly created ListToGame object
+     * @throws IllegalArgumentException - when the ids are null or the relation already exists.
      */
     public ListToGame createListToGame(String listId, String gameId) {
+        if(listId == null || gameId == null) {
+            throw new IllegalArgumentException("Ids cannot be null.");
+        }
+        if(existsByListIdAndGameId(listId,gameId)){
+            throw new IllegalArgumentException("Relation already exists.");
+        }
+
         ListToGame listToGame = new ListToGame(listId, gameId);
         return listToGameRepository.save(listToGame);
     }

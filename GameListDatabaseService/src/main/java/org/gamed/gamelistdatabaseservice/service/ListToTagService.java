@@ -31,8 +31,16 @@ public class ListToTagService {
      * @param listId id of the list
      * @param tagId id of the list
      * @return the newly created ListToTag object
+     * @throws IllegalArgumentException - when the ids are null or the relation already exists.
      */
     public ListToTag createListToTag(String listId, String tagId) {
+        if(listId == null || tagId == null) {
+            throw new IllegalArgumentException("Ids cannot be null");
+        }
+        if(existsByListIdAndTagId(listId, tagId)) {
+            throw new IllegalArgumentException("Relation already exists.");
+        }
+
         ListToTag listToTag = new ListToTag(listId, tagId);
         return listToTagRepository.save(listToTag);
     }
