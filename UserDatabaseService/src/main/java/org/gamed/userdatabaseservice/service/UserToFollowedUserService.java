@@ -59,7 +59,7 @@ public class UserToFollowedUserService {
      * @param userId the ID of the user
      * @return List of followers
      */
-    public List<User> getFollowers(String userId) {
+    public List<String> getFollowers(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         return followedUserRepository.findFollowers(user.getId());
@@ -71,10 +71,10 @@ public class UserToFollowedUserService {
      * @param userId the ID of the user
      * @return List of followed users
      */
-    public List<User> getFollowing(String userId) {
+    public List<String> getFollowing(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        return followedUserRepository.findFollowed(user);
+        return followedUserRepository.findFollowed(user.getId());
     }
 
     /**

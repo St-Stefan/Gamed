@@ -15,10 +15,10 @@ public interface UserToFollowedUserRepository extends JpaRepository<UserToFollow
     List<UserToFollowedUser> findByUser(@Param("user") User user);
 
     @Query("SELECT u.followed_id FROM UserToFollowedUser u WHERE u.user_id = :follower")
-    List<User> findFollowed(@Param("follower") User follower);
+    List<String> findFollowed(@Param("follower") String follower);
 
     @Query("SELECT u.user_id FROM UserToFollowedUser u WHERE u.followed_id = :followedId")
-    List<User> findFollowers(@Param("followedId") String followedId);
+    List<String> findFollowers(@Param("followedId") String followedId);
 
     @Query("SELECT u FROM UserToFollowedUser u WHERE u.user_id = :userId")
     List<UserToFollowedUser> findByUserId(@Param("userId") String userId);

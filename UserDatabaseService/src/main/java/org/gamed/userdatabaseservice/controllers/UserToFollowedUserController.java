@@ -65,9 +65,9 @@ public class UserToFollowedUserController {
      * @return List of followed users
      */
     @GetMapping("/{userId}/following")
-    public ResponseEntity<List<User>> getFollowing(@PathVariable String userId) {
+    public ResponseEntity<List<String>> getFollowing(@PathVariable String userId) {
         try {
-            List<User> followingList = followedUserService.getFollowing(userId);
+            List<String> followingList = followedUserService.getFollowing(userId);
             return ResponseEntity.ok(followingList);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -81,9 +81,9 @@ public class UserToFollowedUserController {
      * @return List of followers
      */
     @GetMapping("/{userId}/followers")
-    public ResponseEntity<List<User>> getFollowers(@PathVariable String userId) {
+    public ResponseEntity<List<String>> getFollowers(@PathVariable String userId) {
         try {
-            List<User> followersList = followedUserService.getFollowers(userId);
+            List<String> followersList = followedUserService.getFollowers(userId);
             return ResponseEntity.ok(followersList);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
