@@ -128,12 +128,12 @@ public class UserToFollowedUserControllerIntegrationTests {
         String userId = "user123";
         User followedUser1 = new User("UserA", "usera@example.com", "hashed_pw1", true, false);
         User followedUser2 = new User("UserB", "userb@example.com", "hashed_pw2", false, true);
-        List<User> mockFollowingList = Arrays.asList(followedUser1, followedUser2);
+        List<String> mockFollowingList = Arrays.asList(followedUser1.getId(), followedUser2.getId());
 
         when(followedUserService.getFollowing(userId)).thenReturn(mockFollowingList);
 
         // Act
-        ResponseEntity<List<User>> response = followedUserController.getFollowing(userId);
+        ResponseEntity<List<String>> response = followedUserController.getFollowing(userId);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -171,12 +171,12 @@ public class UserToFollowedUserControllerIntegrationTests {
         String userId = "user123";
         User follower1 = new User("Follower1", "follower1@example.com", "hashed_pw1", true, false);
         User follower2 = new User("Follower2", "follower2@example.com", "hashed_pw2", false, true);
-        List<User> mockFollowersList = Arrays.asList(follower1, follower2);
+        List<String> mockFollowersList = Arrays.asList(follower1.getId(), follower2.getId());
 
         when(followedUserService.getFollowers(userId)).thenReturn(mockFollowersList);
 
         // Act
-        ResponseEntity<List<User>> response = followedUserController.getFollowers(userId);
+        ResponseEntity<List<String>> response = followedUserController.getFollowers(userId);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());

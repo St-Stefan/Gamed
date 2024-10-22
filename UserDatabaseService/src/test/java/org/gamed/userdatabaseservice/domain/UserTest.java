@@ -27,16 +27,4 @@ public class UserTest {
         assertNull(user.getTimeCreated());
         assertNull(user.getTimeModified());
     }
-
-    @Test
-    public void testUserCollections() {
-        UserToPlaytime userToPlaytime = new UserToPlaytime(user.getId(), "gameId123", 100);
-        Set<UserToPlaytime> playtimes = new HashSet<>();
-        playtimes.add(userToPlaytime);
-        user.setPlaytimes(playtimes);
-
-        assertNotNull(user.getPlaytimes());
-        assertEquals(1, user.getPlaytimes().size());
-        assertTrue(user.getPlaytimes().contains(userToPlaytime));
-    }
 }
