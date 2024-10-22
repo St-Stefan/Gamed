@@ -33,7 +33,7 @@ public class ListToTagService {
      * @return the newly created ListToTag object
      */
     public ListToTag createListToTag(String listId, String tagId) {
-        ListToTag listToTag = new ListToTag(gameListService.getList(listId), tagService.getTag(tagId));
+        ListToTag listToTag = new ListToTag(listId, tagId);
         return listToTagRepository.save(listToTag);
     }
 

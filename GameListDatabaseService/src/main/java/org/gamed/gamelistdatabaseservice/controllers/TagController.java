@@ -79,10 +79,10 @@ public class TagController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete/{tagId}")
-    public HttpStatus deleteTag(@PathVariable String tagId) {
+    public ResponseEntity<String> deleteTag(@PathVariable String tagId) {
         try {
             tagService.deleteTag(tagId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

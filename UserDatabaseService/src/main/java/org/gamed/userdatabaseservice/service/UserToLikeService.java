@@ -32,7 +32,7 @@ public class UserToLikeService {
      * @throws IllegalArgumentException if the user ids are null.
      */
     public UserToLike createLike(String userId, String likedItemId, String type) throws IllegalArgumentException {
-        UserToLike like = new UserToLike(userRepository.getUserById(userId), likedItemId, type);
+        UserToLike like = new UserToLike(userId, likedItemId, type);
         return likeRepository.save(like);
     }
 
@@ -111,7 +111,7 @@ public class UserToLikeService {
      * @param itemId the ID of the item
      * @return List of users who liked the item
      */
-    public List<User> getLikers(String itemId) {
+    public List<String> getLikers(String itemId) {
         List<UserToLike> likes = likeRepository.findByItemId(itemId);
 
         return likes.stream()

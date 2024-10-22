@@ -34,7 +34,7 @@ public class UserToFollowedUserService {
         if (userId == null || followedUserId == null) {
             throw new IllegalArgumentException("User ids cannot be null.");
         }
-        UserToFollowedUser followedUser = new UserToFollowedUser(userRepository.getUserById(userId), followedUserId);
+        UserToFollowedUser followedUser = new UserToFollowedUser(userId, followedUserId);
         return followedUserRepository.save(followedUser);
     }
 

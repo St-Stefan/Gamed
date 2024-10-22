@@ -31,7 +31,7 @@ public class UserToFollowedListService {
      * @return the newly created UserToFollowedList object
      * @throws IllegalArgumentException if the user ids are null.
      */
-    public UserToFollowedList createFollowedList(User user, String followedListId)
+    public UserToFollowedList createFollowedList(String user, String followedListId)
             throws IllegalArgumentException {
         if (user == null || followedListId == null) {
             throw new IllegalArgumentException("User ids cannot be null.");
@@ -109,7 +109,7 @@ public class UserToFollowedListService {
      * @param listId the id of the list
      * @return list of users following the list
      */
-    public List<User> getFollowers(String listId) {
+    public List<String> getFollowers(String listId) {
         List<UserToFollowedList> followedListEntries = userToFollowedListRepository.findByListId(listId);
         return followedListEntries.stream()
                 .map(UserToFollowedList::getUser) // extract the User from each entry

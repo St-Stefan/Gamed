@@ -12,10 +12,10 @@ import java.util.Optional;
 @Repository
 public interface UserToLikeRepository extends JpaRepository<UserToLike, String> {
 
-    @Query("SELECT u FROM UserToLike u WHERE u.user.id = :userId")
+    @Query("SELECT u FROM UserToLike u WHERE u.user_id = :userId")
     List<UserToLike> findByUserId(@Param("userId") String userId);
 
-    @Query("SELECT u FROM UserToLike u WHERE u.user.id = :userId AND u.item_id = :itemId")
+    @Query("SELECT u FROM UserToLike u WHERE u.user_id = :userId AND u.item_id = :itemId")
     Optional<UserToLike> findByUserAndItemId(@Param("userId") String userId, @Param("itemId") String itemId);
 
     @Query("SELECT u FROM UserToLike u WHERE u.item_id = :itemId")

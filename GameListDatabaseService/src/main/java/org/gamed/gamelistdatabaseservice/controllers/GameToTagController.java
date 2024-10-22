@@ -82,10 +82,10 @@ public class GameToTagController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete/{gameToTagId}")
-    public HttpStatus deleteGameToTag(@PathVariable String gameToTagId) {
+    public ResponseEntity<String> deleteGameToTag(@PathVariable String gameToTagId) {
         try {
             gameToTagService.deleteGameToTagById(gameToTagId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

@@ -12,34 +12,32 @@ public class GameToTag {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false, updatable = false)
-    private Game game;
+    @Column(nullable = false, updatable = false)
+    private String game_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id", nullable = false, updatable = false)
-    private Tag tag;
+    @Column(nullable = false, updatable = false)
+    private String tag_id;
 
     @Formula("(SELECT COUNT(*) FROM Game_to_tag gt WHERE gt.game_id = game_id AND gt.tag_id = tag_id)")
     private int occurrences;
 
     public GameToTag() {}
 
-    public GameToTag(Game game, Tag tag) {
-        this.game = game;
-        this.tag = tag;
+    public GameToTag(String game_id, String tag_id) {
+        this.game_id = game_id;
+        this.tag_id = tag_id;
     }
 
     public String getId() {
         return id;
     }
 
-    public Game getGame() {
-        return game;
+    public String getGame() {
+        return game_id;
     }
 
-    public Tag getTag() {
-        return tag;
+    public String getTag() {
+        return tag_id;
     }
 
     public int getOccurrences() {
@@ -50,8 +48,8 @@ public class GameToTag {
     public String toString() {
         return "GameToTag{" +
                 "id='" + id + '\'' +
-                ", game=" + (game != null ? game.getId() : null) +
-                ", tag=" + (tag != null ? tag.getId() : null) +
+                ", game=" + game_id +
+                ", tag=" + tag_id +
                 ", occurrences=" + occurrences +
                 '}';
     }

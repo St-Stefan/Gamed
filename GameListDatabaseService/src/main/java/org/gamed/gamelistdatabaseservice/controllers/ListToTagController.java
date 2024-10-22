@@ -82,10 +82,10 @@ public class ListToTagController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete/{listToTagId}")
-    public HttpStatus deleteListToTag(@PathVariable String listToTagId) {
+    public ResponseEntity<String> deleteListToTag(@PathVariable String listToTagId) {
         try {
             listToTagService.deleteListToTagById(listToTagId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

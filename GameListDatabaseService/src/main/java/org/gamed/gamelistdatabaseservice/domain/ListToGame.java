@@ -11,39 +11,37 @@ public class ListToGame {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "list_id", nullable = false, updatable = false)
-    private GameList list;
+    @Column(nullable = false, updatable = false)
+    private String list_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false, updatable = false)
-    private Game game;
+    @Column(nullable = false, updatable = false)
+    private String game_id;
 
     public ListToGame() {}
 
-    public ListToGame(GameList list, Game game) {
-        this.list = list;
-        this.game = game;
+    public ListToGame(String list_id, String game_id) {
+        this.list_id = list_id;
+        this.game_id = game_id;
     }
 
     public String getId() {
         return id;
     }
 
-    public GameList getList() {
-        return list;
+    public String getList() {
+        return list_id;
     }
 
-    public Game getGame() {
-        return game;
+    public String  getGame() {
+        return game_id;
     }
 
     @Override
     public String toString() {
         return "ListToGame{" +
                 "id='" + id + '\'' +
-                ", list=" + (list != null ? list.getId() : null) +
-                ", game=" + (game != null ? game.getId() : null) +
+                ", list=" + list_id +
+                ", game=" + game_id +
                 '}';
     }
 }

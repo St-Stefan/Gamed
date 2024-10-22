@@ -29,7 +29,7 @@ public class GameToTagService {
      * @return the newly created GameToTag object
      */
     public GameToTag createGameToTag(String gameId, String tagId) {
-        GameToTag gameToTag = new GameToTag(gameService.getGame(gameId), tagService.getTag(tagId));
+        GameToTag gameToTag = new GameToTag(gameId, tagId);
         return gameToTagRepository.save(gameToTag);
     }
 

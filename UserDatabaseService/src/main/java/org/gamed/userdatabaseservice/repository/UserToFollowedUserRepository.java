@@ -11,25 +11,25 @@ import java.util.Optional;
 
 public interface UserToFollowedUserRepository extends JpaRepository<UserToFollowedUser, String> {
 
-    @Query("SELECT u FROM UserToFollowedUser u WHERE u.user = :user")
+    @Query("SELECT u FROM UserToFollowedUser u WHERE u.user_id = :user")
     List<UserToFollowedUser> findByUser(@Param("user") User user);
 
-    @Query("SELECT u.followed_id FROM UserToFollowedUser u WHERE u.user = :follower")
+    @Query("SELECT u.followed_id FROM UserToFollowedUser u WHERE u.user_id = :follower")
     List<User> findFollowed(@Param("follower") User follower);
 
-    @Query("SELECT u.user FROM UserToFollowedUser u WHERE u.followed_id = :followedId")
+    @Query("SELECT u.user_id FROM UserToFollowedUser u WHERE u.followed_id = :followedId")
     List<User> findFollowers(@Param("followedId") String followedId);
 
-    @Query("SELECT u FROM UserToFollowedUser u WHERE u.user.id = :userId")
+    @Query("SELECT u FROM UserToFollowedUser u WHERE u.user_id = :userId")
     List<UserToFollowedUser> findByUserId(@Param("userId") String userId);
 
     @Query("SELECT u FROM UserToFollowedUser u WHERE u.followed_id = :followedId")
     List<UserToFollowedUser> findByFollowedUserId(@Param("followedId") String followedId);
 
-    @Query("SELECT u FROM UserToFollowedUser u WHERE u.user.id = :userId AND u.followed_id = :followedId")
+    @Query("SELECT u FROM UserToFollowedUser u WHERE u.user_id = :userId AND u.followed_id = :followedId")
     Optional<UserToFollowedUser> findByUserIdAndFollowedUserId(@Param("userId") String userId, @Param("followedId") String followedId);
 
-    @Query("SELECT COUNT(u) FROM UserToFollowedUser u WHERE u.user.id = :userId")
+    @Query("SELECT COUNT(u) FROM UserToFollowedUser u WHERE u.user_id = :userId")
     Long countByUserId(@Param("userId") String userId);
 
     @Query("SELECT COUNT(u) FROM UserToFollowedUser u WHERE u.followed_id = :followedId")
