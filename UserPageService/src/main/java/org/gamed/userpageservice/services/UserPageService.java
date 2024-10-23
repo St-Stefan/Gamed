@@ -6,22 +6,16 @@ import org.gamed.userpageservice.domain.DTOs.GameListDTO;
 import org.gamed.userpageservice.domain.DTOs.PlaytimeDTO;
 import org.gamed.userpageservice.domain.DTOs.UserDTO;
 import org.gamed.userpageservice.domain.UserPage;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.gamed.userpageservice.services.FollowService.*;
 import static org.gamed.userpageservice.services.LikeService.*;
 import static org.gamed.userpageservice.services.PlaytimeService.requestPlaytime;
+import static org.gamed.userpageservice.services.UserService.requestUserCreatedLists;
 import static org.gamed.userpageservice.services.UserService.requestUserInfo;
 
 @Service
@@ -70,6 +64,9 @@ public class UserPageService {
 
         List<PlaytimeDTO> playtime = requestPlaytime(userId);
 
-        return new UserPage(userDTO, gameDTO, gameListDTO, followedUsers, followerUsers, followedLists, playtime);
+        List<GameListDTO> createdGameLists = requestUserCreatedLists(userId);
+
+        return new UserPage(userDTO, gameDTO, gameListDTO, followedUsers, followerUsers, followedLists, playtime,
+                            createdGameLists);
     }
 }

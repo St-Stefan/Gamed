@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 /**
  * Controller for managing the List entity.
  */
@@ -83,6 +85,22 @@ public class GameListController {
         try {
             gameListService.deleteList(listId);
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    /**
+     * Endpoint to get all lists created by a user.
+     *
+     * @param userId the ID of the user to get the lists from
+     * @return HTTP status OK if the operation succeeds
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<GameList>> getListByUserId(@PathVariable String userId) {
+        try {
+            List<GameList> listOfLists = gameListService.getListsByUserId(userId);
+            return ResponseEntity.ok(listOfLists);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
