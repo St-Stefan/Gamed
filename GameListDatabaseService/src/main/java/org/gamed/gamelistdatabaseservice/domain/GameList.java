@@ -76,7 +76,7 @@ public class GameList {
     public String toString() {
         return "List{" +
                 "id='" + id + '\'' +
-                ", user=" + user_id + '\'' +
+                ", user='" + user_id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", time_created=" + time_created +

@@ -27,14 +27,19 @@ public class UserToFollowedUserService {
      * @param userId        the id of the user who is following
      * @param followedUserId the id of the user being followed
      * @return the newly created UserToFollowedUser object
-     * @throws IllegalArgumentException if the user ids are null.
+     * @throws IllegalArgumentException if the user ids are null, or if the relation already exists.
      */
     public UserToFollowedUser createFollowedUser(String userId, String followedUserId)
             throws IllegalArgumentException {
         if (userId == null || followedUserId == null) {
             throw new IllegalArgumentException("User ids cannot be null.");
         }
-        UserToFollowedUser followedUser = new UserToFollowedUser(userRepository.getUserById(userId), followedUserId);
+
+        if(isFollowing(userId, followedUserId)) {
+            throw new IllegalArgumentException("Relation already exists.");
+        }
+
+        UserToFollowedUser followedUser = new UserToFollowedUser(userId, followedUserId);
         return followedUserRepository.save(followedUser);
     }
 
@@ -59,7 +64,7 @@ public class UserToFollowedUserService {
      * @param userId the ID of the user
      * @return List of followers
      */
-    public List<User> getFollowers(String userId) {
+    public List<String> getFollowers(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         return followedUserRepository.findFollowers(user.getId());
@@ -71,10 +76,10 @@ public class UserToFollowedUserService {
      * @param userId the ID of the user
      * @return List of followed users
      */
-    public List<User> getFollowing(String userId) {
+    public List<String> getFollowing(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        return followedUserRepository.findFollowed(user);
+        return followedUserRepository.findFollowed(user.getId());
     }
 
     /**

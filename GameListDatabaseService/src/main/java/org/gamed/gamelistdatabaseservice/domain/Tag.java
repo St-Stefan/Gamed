@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Tag")
 @EntityListeners(AuditingEntityListener.class)
@@ -17,11 +19,11 @@ public class Tag {
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
-    private int time_created;
+    private LocalDateTime time_created;
 
     public Tag() {}
 
-    public Tag(String name, int time_created) {
+    public Tag(String name, LocalDateTime time_created) {
         this.name = name;
         this.time_created = time_created;
     }
@@ -34,7 +36,7 @@ public class Tag {
         return name;
     }
 
-    public int getTimeCreated() {
+    public LocalDateTime getTimeCreated() {
         return time_created;
     }
 

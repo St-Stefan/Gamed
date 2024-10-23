@@ -15,9 +15,8 @@ public class UserToPlaytime {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false, updatable = false)
+    private String user_id;
 
     @Column(nullable = false, updatable = false)
     private String game_id;
@@ -35,8 +34,8 @@ public class UserToPlaytime {
 
     public UserToPlaytime() {}
 
-    public UserToPlaytime(User user, String game_id, int playtime) {
-        this.user = user;
+    public UserToPlaytime(String user_id, String game_id, int playtime) {
+        this.user_id = user_id;
         this.game_id = game_id;
         this.playtime = playtime;
     }
@@ -45,8 +44,8 @@ public class UserToPlaytime {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return user_id;
     }
 
     public String getGameId() {
@@ -73,7 +72,7 @@ public class UserToPlaytime {
     public String toString() {
         return "UserToPlaytime{" +
                 "id='" + id + '\'' +
-                ", user=" + (user != null ? user.getId() : null) +
+                ", user=" + user_id +
                 ", game_id='" + game_id + '\'' +
                 ", playtime=" + playtime +
                 ", time_created=" + time_created +

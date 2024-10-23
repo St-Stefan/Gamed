@@ -35,10 +35,10 @@ public class UserToLikeController {
      * @return HTTP status OK if the operation succeeds
      */
     @PostMapping("/like")
-    public HttpStatus likeItem(@RequestParam String userId, @RequestParam String itemId, @RequestParam String type) {
+    public ResponseEntity<String> likeItem(@RequestParam String userId, @RequestParam String itemId, @RequestParam String type) {
         try {
             likeService.createLike(userId, itemId, type);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -52,10 +52,10 @@ public class UserToLikeController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/unlike")
-    public HttpStatus unlikeItem(@RequestParam String userId, @RequestParam String itemId) {
+    public ResponseEntity<String> unlikeItem(@RequestParam String userId, @RequestParam String itemId) {
         try {
             likeService.deleteLike(userId, itemId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -84,9 +84,9 @@ public class UserToLikeController {
      * @return List of users who liked the item
      */
     @GetMapping("/{itemId}/likers")
-    public ResponseEntity<List<User>> getLikers(@PathVariable String itemId) {
+    public ResponseEntity<List<String>> getLikers(@PathVariable String itemId) {
         try {
-            List<User> likers = likeService.getLikers(itemId);
+            List<String> likers = likeService.getLikers(itemId);
             return ResponseEntity.ok(likers);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -101,10 +101,10 @@ public class UserToLikeController {
      * @return HTTP status OK if liking, BAD REQUEST otherwise
      */
     @GetMapping("/is-liking")
-    public HttpStatus isLikingItem(@RequestParam String userId, @RequestParam String itemId) {
+    public ResponseEntity<String> isLikingItem(@RequestParam String userId, @RequestParam String itemId) {
         try {
             boolean isLiking = likeService.isLikingItem(userId, itemId);
-            return isLiking ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+            return isLiking ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

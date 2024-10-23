@@ -5,6 +5,7 @@ import org.gamed.gamelistdatabaseservice.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class TagService {
             throw new IllegalArgumentException("A tag with this name already exists.");
         }
 
-        Tag tag = new Tag(name, (int) (System.currentTimeMillis() / 1000));
+        Tag tag = new Tag(name, LocalDateTime.of(2023,1,1,1,0,0));
         return tagRepository.save(tag);
     }
 

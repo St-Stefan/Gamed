@@ -30,7 +30,7 @@ public class UserService {
      */
     public User createUser(String name, String email, String pwd_hash, boolean developer, boolean premium)
             throws IllegalArgumentException {
-        if (email == null || email.isEmpty() || userRepository.existsByEmail(email)) {
+        if (email == null || email.isEmpty() || userExistsByEmail(email)) {
             throw new IllegalArgumentException("Email must be unique and cannot be blank.");
         }
 
