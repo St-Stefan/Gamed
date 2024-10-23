@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -27,18 +28,11 @@ public class UserDTO {
 
     private boolean premium;
 
-    private UserToFollowedUserDTO followedUsers;
-
-    private UserToFollowedListDTO followedLists;
-
     private LocalDateTime timeCreated;
 
     private LocalDateTime timeModified;
 
-//    private List<String> recentActivity;
-
     public UserDTO(String id, String name, String email, String pwdHash, boolean developer, boolean premium,
-                   UserToFollowedUserDTO followedUsers, UserToFollowedListDTO followedLists,
                    LocalDateTime timeCreated, LocalDateTime timeModified) {
         this.id = id;
         this.name = name;
@@ -46,8 +40,6 @@ public class UserDTO {
         this.pwdHash = pwdHash;
         this.developer = developer;
         this.premium = premium;
-        this.followedUsers = followedUsers;
-        this.followedLists = followedLists;
         this.timeCreated = timeCreated;
         this.timeModified = timeModified;
     }

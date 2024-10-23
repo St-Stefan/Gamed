@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.javatuples.*;
+import java.util.AbstractMap.SimpleEntry;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,14 +70,26 @@ public class UserToLikeController {
      * @return List of liked items
      */
     @GetMapping("/{userId}/liked-items")
-    public ResponseEntity<List<String>> getLikedItems(@PathVariable String userId) {
+    public ResponseEntity<List<SimpleEntry<String, String>>> getLikedItems(@PathVariable String userId) {
         try {
             List<UserToLike> likedItems = likeService.getLikedItems(userId);
-            return ResponseEntity.ok(likedItems.stream().map(UserToLike::getItemId).collect(Collectors.toList()));
+            return ResponseEntity.ok(likedItems.stream()
+                                 .map(item -> new SimpleEntry<>(item.getItemId(), item.getType()))
+                                 .collect(Collectors.toList()));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+//    @GetMapping("/{userId}/liked-items")
+//    public ResponseEntity<List<String>> getLikedItems(@PathVariable String userId) {
+//        try {
+//            List<UserToLike> likedItems = likeService.getLikedItems(userId);
+//            return ResponseEntity.ok(likedItems.stream().map(UserToLike::getItemId).collect(Collectors.toList()));
+//        } catch (Exception e) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+//        }
+//    }
 
     /**
      * Endpoint to get all users who liked a specific item.
