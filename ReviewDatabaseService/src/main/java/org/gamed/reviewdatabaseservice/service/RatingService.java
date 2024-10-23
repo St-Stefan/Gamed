@@ -28,7 +28,7 @@ public class RatingService {
      * @param score      the score given in the rating
      * @param graph      the graph representation of the rating
      * @return the newly created Rating object
-     * @throws IllegalArgumentException if the category is blank or the score is out of range.
+     * @throws IllegalArgumentException if the category is blank or the score is out of range, or if the relation already exists.
      */
     public Rating createRating(String reviewId, String category, int score, String graph)
             throws IllegalArgumentException {
@@ -37,6 +37,10 @@ public class RatingService {
         }
         if (score < 0 || score > 10) {
             throw new IllegalArgumentException("Score must be between 0 and 10.");
+        }
+
+        if(ratingRepository.existsByReviewIdAndCategory(reviewId, category)) {
+            throw new IllegalArgumentException("Relation already exists.");
         }
 
         Rating rating = new Rating(reviewRepository.getReviewById(reviewId), category, score, graph);

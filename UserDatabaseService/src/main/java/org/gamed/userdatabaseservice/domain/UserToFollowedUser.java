@@ -14,9 +14,8 @@ public class UserToFollowedUser {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false, updatable = false)
+    private String user_id;
 
     @Column(nullable = false, updatable = false)
     private String followed_id;
@@ -27,8 +26,8 @@ public class UserToFollowedUser {
 
     public UserToFollowedUser() {}
 
-    public UserToFollowedUser(User user, String followed_id) {
-        this.user = user;
+    public UserToFollowedUser(String user_id, String followed_id) {
+        this.user_id = user_id;
         this.followed_id = followed_id;
     }
 
@@ -36,8 +35,8 @@ public class UserToFollowedUser {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return user_id;
     }
 
     public String getFollowedId() {
@@ -52,7 +51,7 @@ public class UserToFollowedUser {
     public String toString() {
         return "UserToFollowedUser{" +
                 "id='" + id + '\'' +
-                ", user=" + (user != null ? user.getId() : null) +
+                ", user=" + user_id +
                 ", followed_id='" + followed_id + '\'' +
                 ", time=" + time +
                 '}';

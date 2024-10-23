@@ -49,10 +49,10 @@ public class GameController {
      * @return HTTP status OK if the operation succeeds
      */
     @PutMapping("/update/{gameId}")
-    public HttpStatus updateGame(@PathVariable String gameId, @RequestBody CreateAndUpdateGameRequestModel request) {
+    public ResponseEntity<String> updateGame(@PathVariable String gameId, @RequestBody CreateAndUpdateGameRequestModel request) {
         try {
             gameService.updateGame(gameId, request.getReleaseDate(), request.getPlatforms());
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -96,10 +96,10 @@ public class GameController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/delete/{gameId}")
-    public HttpStatus deleteGame(@PathVariable String gameId) {
+    public ResponseEntity<String> deleteGame(@PathVariable String gameId) {
         try {
             gameService.deleteGame(gameId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

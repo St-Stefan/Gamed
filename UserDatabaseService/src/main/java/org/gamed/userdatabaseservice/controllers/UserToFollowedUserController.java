@@ -14,7 +14,7 @@ import java.util.List;
  * Controller for managing the UserToFollowedUser entity.
  */
 @RestController
-@RequestMapping("/user/follow")
+@RequestMapping("/user/followed-users")
 public class UserToFollowedUserController {
 
     private final transient UserToFollowedUserService followedUserService;
@@ -32,10 +32,10 @@ public class UserToFollowedUserController {
      * @return HTTP status OK if the operation succeeds
      */
     @PostMapping("/follow")
-    public HttpStatus followUser(@RequestParam String followerId, @RequestParam String followedId) {
+    public ResponseEntity<String> followUser(@RequestParam String followerId, @RequestParam String followedId) {
         try {
             followedUserService.createFollowedUser(followerId, followedId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -49,10 +49,10 @@ public class UserToFollowedUserController {
      * @return HTTP status OK if the operation succeeds
      */
     @DeleteMapping("/unfollow")
-    public HttpStatus unfollowUser(@RequestParam String followerId, @RequestParam String followedId) {
+    public ResponseEntity<String> unfollowUser(@RequestParam String followerId, @RequestParam String followedId) {
         try {
             followedUserService.deleteFollowedUser(followerId, followedId);
-            return HttpStatus.OK;
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -65,9 +65,9 @@ public class UserToFollowedUserController {
      * @return List of followed users
      */
     @GetMapping("/{userId}/following")
-    public ResponseEntity<List<User>> getFollowing(@PathVariable String userId) {
+    public ResponseEntity<List<String>> getFollowing(@PathVariable String userId) {
         try {
-            List<User> followingList = followedUserService.getFollowing(userId);
+            List<String> followingList = followedUserService.getFollowing(userId);
             return ResponseEntity.ok(followingList);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -81,9 +81,9 @@ public class UserToFollowedUserController {
      * @return List of followers
      */
     @GetMapping("/{userId}/followers")
-    public ResponseEntity<List<User>> getFollowers(@PathVariable String userId) {
+    public ResponseEntity<List<String>> getFollowers(@PathVariable String userId) {
         try {
-            List<User> followersList = followedUserService.getFollowers(userId);
+            List<String> followersList = followedUserService.getFollowers(userId);
             return ResponseEntity.ok(followersList);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -98,10 +98,10 @@ public class UserToFollowedUserController {
      * @return HTTP status OK if following, BAD REQUEST otherwise
      */
     @GetMapping("/is-following")
-    public HttpStatus isFollowing(@RequestParam String followerId, @RequestParam String followedId) {
+    public ResponseEntity<String> isFollowing(@RequestParam String followerId, @RequestParam String followedId) {
         try {
             boolean isFollowing = followedUserService.isFollowing(followerId, followedId);
-            return isFollowing ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+            return isFollowing ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
