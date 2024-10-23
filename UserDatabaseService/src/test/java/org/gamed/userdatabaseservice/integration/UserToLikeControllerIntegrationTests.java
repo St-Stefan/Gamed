@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.AbstractMap.SimpleEntry;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -136,14 +137,15 @@ public class UserToLikeControllerIntegrationTests {
         when(likeService.getLikedItems(userId)).thenReturn(mockLikedItems);
 
         // Act
-        ResponseEntity<List<String>> response = likeController.getLikedItems(userId);
+        ResponseEntity<List<SimpleEntry<String, String>>> response = likeController.getLikedItems(userId);
+        List<String> itemIds = response.getBody().stream().map(SimpleEntry::getKey).toList();
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         List<String> expectedItemIds = mockLikedItems.stream()
                 .map(UserToLike::getItemId)
                 .collect(Collectors.toList());
-        assertEquals(expectedItemIds, response.getBody());
+        assertEquals(expectedItemIds, itemIds);
         verify(likeService, times(1)).getLikedItems(userId);
     }
 
