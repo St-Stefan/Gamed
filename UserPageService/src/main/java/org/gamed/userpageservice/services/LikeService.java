@@ -28,7 +28,6 @@ public class LikeService {
                     List.class
             );
         } catch (HttpClientErrorException e) {
-            System.err.println("ERROR");
             e.printStackTrace();
             return null;
         }
@@ -69,7 +68,8 @@ public class LikeService {
                         null,
                         GameListDTO.class
                 );
-                likedLists.add(gameListResponse.getBody());
+                GameListDTO list = gameListResponse.getBody();
+                likedLists.add(list);
             });
         } catch (HttpClientErrorException e) {
             e.printStackTrace();

@@ -19,11 +19,14 @@ public class GameListDTO {
     @Setter
     private String description;
 
+    @Setter
     private LocalDateTime time_created;
 
+    @Setter
     private LocalDateTime time_modified;
 
-    public GameListDTO(String userId, String name, String description, LocalDateTime time_created, LocalDateTime time_modified) {
+    public GameListDTO(String id, String userId, String name, String description, LocalDateTime time_created, LocalDateTime time_modified) {
+        this.id = id;
         this.userId = userId;
         this.name = name;
         this.description = description;

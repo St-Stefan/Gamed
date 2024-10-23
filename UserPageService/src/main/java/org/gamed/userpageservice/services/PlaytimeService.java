@@ -29,7 +29,6 @@ public class PlaytimeService {
             return null;
         }
 
-        System.out.println(response.getBody());
         List<LinkedHashMap<String, Object>> playtimesList = response.getBody();
         List<PlaytimeDTO> playtimes = new ArrayList<>();
 
