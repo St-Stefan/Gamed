@@ -19,7 +19,6 @@ import static org.gamed.userpageservice.services.UserService.requestUserCreatedL
 import static org.gamed.userpageservice.services.UserService.requestUserInfo;
 
 @Service
-@NoArgsConstructor
 public class UserPageService {
 
     public static UserPage requestUserPage(String userId) {
