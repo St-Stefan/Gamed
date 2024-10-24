@@ -16,6 +16,8 @@ import static org.gamed.userpageservice.services.UserPageService.requestUserPage
 public class UserPageController {
     private RestTemplate restTemplate = new RestTemplate();
 
+
+
     @Transactional
     @GetMapping("/{userId}")
     public ResponseEntity<UserPage> getUserPage(@PathVariable(name = "userId") String userId) {
