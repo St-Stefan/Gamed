@@ -36,7 +36,7 @@ public class PlaytimeService {
             String playtimeId = (String) playtime.get("id");
             int time = (int) playtime.get("playtime");
             String gameId = (String) playtime.get("gameId");
-            PlaytimeDTO playtimeDTO = new PlaytimeDTO(playtimeId, gameId, time);
+            PlaytimeDTO playtimeDTO = new PlaytimeDTO(userId, playtimeId, gameId, time);
             playtimes.add(playtimeDTO);
         });
 
