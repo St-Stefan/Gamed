@@ -3,10 +3,7 @@ package org.gamed.userpageservice.controllers;
 import jakarta.transaction.Transactional;
 import org.gamed.userpageservice.domain.UserPage;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import static org.gamed.userpageservice.services.UserPageService.requestUserPage;
@@ -15,8 +12,6 @@ import static org.gamed.userpageservice.services.UserPageService.requestUserPage
 @RequestMapping("/user_page")
 public class UserPageController {
     private RestTemplate restTemplate = new RestTemplate();
-
-
 
     @Transactional
     @GetMapping("/{userId}")

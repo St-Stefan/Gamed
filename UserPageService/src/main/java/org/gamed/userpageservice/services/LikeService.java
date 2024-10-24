@@ -17,6 +17,10 @@ public class LikeService {
     private static final String gameDatabaseUrl = "http://localhost:8092/games";
     private static final String gameListDatabaseUrl = "http://localhost:8092/lists";
 
+    public LikeService(RestTemplate rest) {
+        restTemplate = rest;
+    }
+
     public static List<LinkedHashMap<String, String>> requestUserLikeInfo (String userId) {
         ResponseEntity<List> response = null;
 

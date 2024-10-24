@@ -17,6 +17,10 @@ public class UserService {
     private static final String userDatabaseUrl = "http://localhost:8090/users";
     private static final String gameListDatabaseUrl = "http://localhost:8092/lists";
 
+    public UserService(RestTemplate rest) {
+        restTemplate = rest;
+    }
+
     public static UserDTO requestUserInfo (String userId) {
         ResponseEntity<UserDTO> response = null;
 

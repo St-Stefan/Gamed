@@ -18,6 +18,10 @@ public class FollowService {
     private static final String followedListDatabaseUrl = "http://localhost:8090/user/followed-lists";
     private static final String gameListDatabaseUrl = "http://localhost:8092/lists";
 
+    public FollowService(RestTemplate rest) {
+        restTemplate = rest;
+    }
+
     public static List<GameListDTO> requestFollowedLists (String userId) {
         ResponseEntity<List> response = null;
 

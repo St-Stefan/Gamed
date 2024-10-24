@@ -8,6 +8,7 @@ import org.gamed.userpageservice.domain.DTOs.PlaytimeDTO;
 import org.gamed.userpageservice.domain.DTOs.UserDTO;
 
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @ToString
@@ -39,5 +40,18 @@ public class UserPage {
         this.followedLists = followedLists;
         this.playtimes = playtimes;
         this.createdGameLists = createdGameLists;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserPage userPage = (UserPage) o;
+        return Objects.equals(userDTO, userPage.userDTO) && Objects.equals(likedGames, userPage.likedGames) && Objects.equals(likedLists, userPage.likedLists) && Objects.equals(followedLists, userPage.followedLists) && Objects.equals(followedUsers, userPage.followedUsers) && Objects.equals(followerUsers, userPage.followerUsers) && Objects.equals(playtimes, userPage.playtimes) && Objects.equals(createdGameLists, userPage.createdGameLists);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userDTO, likedGames, likedLists, followedLists, followedUsers, followerUsers, playtimes, createdGameLists);
     }
 }
