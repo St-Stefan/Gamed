@@ -1,6 +1,5 @@
 package org.gamed.userpageservice.services;
 
-import lombok.NoArgsConstructor;
 import org.gamed.userpageservice.domain.DTOs.GameDTO;
 import org.gamed.userpageservice.domain.DTOs.GameListDTO;
 import org.gamed.userpageservice.domain.DTOs.PlaytimeDTO;
@@ -20,7 +19,6 @@ import static org.gamed.userpageservice.services.UserService.requestUserInfo;
 
 @Service
 public class UserPageService {
-
     public static UserPage requestUserPage(String userId) {
         UserDTO userDTO = requestUserInfo(userId);
 

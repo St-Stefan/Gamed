@@ -14,6 +14,10 @@ public class PlaytimeService {
     private static final String userPlaytimeDatabaseUrl = "http://localhost:8090/user/playtime";
     private static RestTemplate restTemplate = new RestTemplate();
 
+    public PlaytimeService(RestTemplate rest) {
+        restTemplate = rest;
+    }
+
     public static List<PlaytimeDTO> requestPlaytime (String userId) {
         ResponseEntity<List> response = null;
 
