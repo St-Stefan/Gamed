@@ -96,4 +96,7 @@ public class ReviewService {
     public List<Review> getReviewsByGameId(String gameId) {
         return reviewRepository.getReviewsByGameId(gameId);
     }
+    public List<Review> getReviewsByUserId(String userId) {
+        return reviewRepository.getReviewsByUserId(userId);
+    }
 }

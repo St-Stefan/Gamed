@@ -50,26 +50,29 @@ export default {
     };
   },
   created() {
-    fetch('http://localhost:8083/home/1')
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          this.posts = data;
-        })
-        .catch((error) => {
-          this.error = error.message || 'An error occurred while fetching posts.';
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+    this.onUIDChanged()
   },
   methods:{
     onUIDChanged(){
        this.loadedUID = localStorage.getItem("GamedUID")!=null;
+       if(this.loadedUID){
+         fetch('http://localhost:8083/home/' + localStorage.getItem("GamedUID"))
+             .then((response) => {
+               if (!response.ok) {
+                 throw new Error('Network response was not ok');
+               }
+               return response.json();
+             })
+             .then((data) => {
+               this.posts = data;
+             })
+             .catch((error) => {
+               this.error = error.message || 'An error occurred while fetching posts.';
+             })
+             .finally(() => {
+               this.loading = false;
+             });
+       }
     }
   }
 };
