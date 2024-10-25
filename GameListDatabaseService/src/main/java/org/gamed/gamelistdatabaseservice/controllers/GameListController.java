@@ -105,4 +105,20 @@ public class GameListController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    /**
+     * Endpoint to get all existing lists.
+     *
+     * @return HTTP status OK if the operation succeeds
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<GameList>> getAllLists() {
+        try {
+            List<GameList> lists = gameListService.getAllLists();
+            return ResponseEntity.ok(lists);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
 }

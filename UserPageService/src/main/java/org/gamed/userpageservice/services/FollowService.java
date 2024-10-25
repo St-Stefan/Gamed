@@ -1,13 +1,16 @@
 package org.gamed.userpageservice.services;
 
+import org.gamed.userpageservice.domain.DTOs.GameDTO;
 import org.gamed.userpageservice.domain.DTOs.GameListDTO;
 import org.gamed.userpageservice.domain.DTOs.UserDTO;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.gamed.userpageservice.services.UserService.requestUserInfo;
@@ -48,6 +51,30 @@ public class FollowService {
                     null,
                     GameListDTO.class
             );
+            ResponseEntity<List<LinkedHashMap<String, String>>> gamesInListResponse = null;
+            gamesInListResponse = restTemplate.exchange(
+                    "http://localhost:8092/listToGames/list/" + followedListId,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<>() {}
+            );
+            List<GameDTO> games = new ArrayList<>();
+
+            gamesInListResponse.getBody().forEach( resp -> {
+                ResponseEntity<GameDTO> gameInfo = null;
+                System.out.println(resp);
+                gameInfo = restTemplate.exchange(
+                        "http://localhost:8092/games/" + resp.get("game"),
+                        HttpMethod.GET,
+                        null,
+                        GameDTO.class
+                );
+                games.add(gameInfo.getBody());
+            });
+
+            GameListDTO list = gameListResponse.getBody();
+            list.setGames(games);
+
             followedLists.add(gameListResponse.getBody());
         });
 
