@@ -1,7 +1,7 @@
 <template>
   <div class="navbar navbg-base-100 pr-20 pl-20">
     <div class="flex-1">
-      <a class="btn btn-ghost text-xl font-bold">Gamed</a>
+      <router-link to="/" class="justify-between"> <a class="btn btn-ghost text-xl font-bold">Gamed</a> </router-link>
     </div>
     <div class="flex-none gap-2">
       <div class="form-control">
@@ -19,10 +19,10 @@
             tabindex="0"
             class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
           <li>
-            <a class="justify-between">
+            <router-link to="/Profile" class="justify-between">
               Profile
               <span class="badge">New</span>
-            </a>
+            </router-link>
           </li>
           <li><a>Settings</a></li>
           <li @click="clearStorage()"><a>Logout</a></li>

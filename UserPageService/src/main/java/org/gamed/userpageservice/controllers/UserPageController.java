@@ -10,6 +10,7 @@ import static org.gamed.userpageservice.services.UserPageService.requestUserPage
 
 @RestController
 @RequestMapping("/user_page")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserPageController {
     private RestTemplate restTemplate = new RestTemplate();
 

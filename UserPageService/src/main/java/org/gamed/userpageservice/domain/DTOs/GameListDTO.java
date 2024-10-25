@@ -1,11 +1,11 @@
 package org.gamed.userpageservice.domain.DTOs;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -27,13 +27,17 @@ public class GameListDTO {
     @Setter
     private LocalDateTime time_modified;
 
-    public GameListDTO(String id, String userId, String name, String description, LocalDateTime time_created, LocalDateTime time_modified) {
+    @Setter
+    private List<GameDTO> games;
+
+    public GameListDTO(String id, String userId, String name, String description, LocalDateTime time_created, LocalDateTime time_modified, List<GameDTO> games) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.description = description;
         this.time_created = time_created;
         this.time_modified = time_modified;
+        this.games = games;
     }
 
     @Override

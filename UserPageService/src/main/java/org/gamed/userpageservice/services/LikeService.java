@@ -2,6 +2,7 @@ package org.gamed.userpageservice.services;
 
 import org.gamed.userpageservice.domain.DTOs.GameDTO;
 import org.gamed.userpageservice.domain.DTOs.GameListDTO;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
@@ -72,7 +73,29 @@ public class LikeService {
                         null,
                         GameListDTO.class
                 );
+                ResponseEntity<List<LinkedHashMap<String, String>>> gamesInListResponse = null;
+                gamesInListResponse = restTemplate.exchange(
+                        "http://localhost:8092/listToGames/list/" + likedListId,
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<>() {}
+                );
+
+                List<GameDTO> games = new ArrayList<>();
+
+                gamesInListResponse.getBody().forEach( resp -> {
+                    ResponseEntity<GameDTO> gameInfo = null;
+                    gameInfo = restTemplate.exchange(
+                            "http://localhost:8092/games/" + resp.get("game"),
+                            HttpMethod.GET,
+                            null,
+                            GameDTO.class
+                    );
+                    games.add(gameInfo.getBody());
+                });
+
                 GameListDTO list = gameListResponse.getBody();
+                list.setGames(games);
                 likedLists.add(list);
             });
         } catch (HttpClientErrorException e) {
