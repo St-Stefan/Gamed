@@ -14,7 +14,7 @@ import java.util.List;
  * Controller for managing the UserToFollowedUser entity.
  */
 @RestController
-@RequestMapping("/user/follow")
+@RequestMapping("/user/followed-users")
 public class UserToFollowedUserController {
 
     private final transient UserToFollowedUserService followedUserService;
