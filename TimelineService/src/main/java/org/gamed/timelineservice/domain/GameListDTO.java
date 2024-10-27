@@ -14,6 +14,62 @@ public class GameListDTO {
 
     private String description;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getTime_created() {
+        return time_created;
+    }
+
+    public void setTime_created(LocalDateTime time_created) {
+        this.time_created = time_created;
+    }
+
+    public LocalDateTime getTime_modified() {
+        return time_modified;
+    }
+
+    public void setTime_modified(LocalDateTime time_modified) {
+        this.time_modified = time_modified;
+    }
+
+    public List<GameDTO> getGames() {
+        return games;
+    }
+
+    public void setGames(List<GameDTO> games) {
+        this.games = games;
+    }
+
     private LocalDateTime time_created;
 
     private LocalDateTime time_modified;

@@ -1,7 +1,7 @@
 <template>
   <div class="navbar navbg-base-100 pr-20 pl-20">
     <div class="flex-1">
-      <a class="btn btn-ghost text-xl font-bold">Gamed</a>
+      <a class="btn btn-ghost text-3xl font-bold">Gamed</a>
     </div>
     <div class="flex-none gap-2">
       <div class="form-control">

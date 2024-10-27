@@ -1,5 +1,6 @@
 package org.gamed.timelineservice.controllers;
 
+import org.gamed.timelineservice.domain.GameListDTO;
 import org.gamed.timelineservice.domain.Post;
 import org.gamed.timelineservice.domain.UserDTO;
 import org.gamed.timelineservice.models.PostRequestResponseModel;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -24,10 +26,12 @@ public class FrontEndController {
 
 
         List<String> currentUser = userRetrievalService.retrieveFollowList(userID);
-        List<PostRequestResponseModel> testList = userRetrievalService.retrieveAllPosts(currentUser);
+        List<PostRequestResponseModel> responseList = userRetrievalService.retrieveAllPosts(currentUser);
+        responseList.addAll(userRetrievalService.retrieveAllLists(currentUser));
 
+        responseList.sort(Comparator.comparing(PostRequestResponseModel::getTimestamp).reversed());
 
-        return ResponseEntity.ok(testList);
+        return ResponseEntity.ok(responseList);
     }
 
 
