@@ -5,7 +5,7 @@
     </div>
     <div class="flex-none gap-2">
       <div class="form-control">
-        <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+        <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" @keyup.enter="submit" formaction="http://localhost:8082/search/{{ this.value }}" />
       </div>
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
