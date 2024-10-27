@@ -9,25 +9,21 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class GameListDTO {
     private String id;
 
     private String userId;
 
-    @Setter
     private String name;
 
-    @Setter
     private String description;
 
-    @Setter
-    private LocalDateTime time_created;
+    private LocalDateTime timeCreated;
 
-    @Setter
-    private LocalDateTime time_modified;
+    private LocalDateTime timeModified;
 
-    @Setter
     private List<GameDTO> games;
 
     public GameListDTO(String id, String userId, String name, String description, LocalDateTime time_created, LocalDateTime time_modified, List<GameDTO> games) {
@@ -35,8 +31,8 @@ public class GameListDTO {
         this.userId = userId;
         this.name = name;
         this.description = description;
-        this.time_created = time_created;
-        this.time_modified = time_modified;
+        this.timeCreated = time_created;
+        this.timeModified = time_modified;
         this.games = games;
     }
 
@@ -60,8 +56,8 @@ public class GameListDTO {
                 ", user=" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", time_created=" + time_created +
-                ", time_modified=" + time_modified +
+                ", time_created=" + timeCreated +
+                ", time_modified=" + timeModified +
                 '}';
     }
 }
