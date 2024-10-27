@@ -5,6 +5,7 @@ import org.gamed.gamelistdatabaseservice.repository.GameListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -125,5 +126,12 @@ public class GameListService {
             throw new IllegalArgumentException("No list found with the user ID: " + userId + " and name: " + name);
         }
         return list;
+    }
+    /**
+     * Retrieves all existing lists.
+     * @return all existing lists
+     */
+    public List<GameList> getAllLists() {
+        return gameListRepository.findAll();
     }
 }

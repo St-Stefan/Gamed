@@ -90,4 +90,20 @@ public class ListToGameController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    /**
+     * Endpoint to get ListToGame objects by list id
+     *
+     * @param listId id of the list
+     * @return a list of ListToGame objects
+     */
+    @GetMapping("/list/{listId}")
+    public ResponseEntity<List<ListToGame>> getGamesByList(@PathVariable String listId) {
+        try {
+            List<ListToGame> listToGames = listToGameService.getListToGamesByListId(listId);
+            return ResponseEntity.ok(listToGames);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }

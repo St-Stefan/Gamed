@@ -11,16 +11,17 @@ defineProps({
 
 <template>
   <div
-      class="card border border-gray-700 rounded-lg p-4 mb-4 cursor-pointer"
+      class="card border border-gray-700 bg-base-100/30  backdrop-blur-xl rounded-lg p-4 mb-4 cursor-pointer w-3/4"
       @click="selectPost"
   >
-    <h2 class="text-xl font-semibold mb-2">Review of {{post.games[0].name}} by {{post.author}}</h2>
-    <p class="text-gray-300 mb-4">{{ post.content }}</p>
+    <h2 v-if="post.isReview" class="text-xl font-semibold mb-2">Review of {{post.games[0].name}} by {{post.author}}</h2>
+    <h2 v-if="post.isList" class="text-xl font-semibold mb-2">{{post.title}} by {{post.author}}</h2>
+    <p class="text-gray-300 mb-4">{{post.content}}</p>
 
     <!-- Review-specific Game Info -->
     <div
-        v-if="post.games.length > 0"
-        class="game-info bg-base-200 p-3 rounded mb-4"
+        v-if="post.isReview && post.games.length > 0"
+        class="game-info bg-base-200/80 border border-gray-800 backdrop-blur-lg p-3 rounded mb-4"
     >
       <h3 class="text-lg font-medium">{{ post.games[0].name }}</h3>
       <p class="text-sm text-gray-600">
@@ -35,17 +36,22 @@ defineProps({
     </div>
 
     <!-- List-specific Game Info -->
-    <div v-if="post.isList" class="game-list bg-gray-100 p-3 rounded mb-4">
-      <h3 class="text-lg font-medium mb-2">Games in this List:</h3>
-      <ul class="list-disc list-inside">
-        <li
-            v-for="game in post.games"
-            :key="game.id"
-            class="text-sm text-gray-700"
-        >
-          {{ game.name }}
-        </li>
-      </ul>
+    <div v-if="post.isList" class="game-list rounded">
+      <div
+          v-for="game in post.games"
+          class="game-info bg-base-200/80 border border-gray-800 backdrop-blur-lg p-3 rounded mb-4"
+      >
+        <h3 class="text-lg font-medium">{{ game.name }}</h3>
+        <p class="text-sm text-gray-600">
+          Developer: {{ game.developer }}
+        </p>
+        <p class="text-sm text-gray-600">
+          Release Date: {{ formatDate(game.release_date) }}
+        </p>
+        <p class="text-sm text-gray-600">
+          Platforms: {{ game.platforms }}
+        </p>
+      </div>
     </div>
 
     <div class="card-footer flex justify-between items-center text-sm text-gray-600">
