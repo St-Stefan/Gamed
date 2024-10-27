@@ -62,7 +62,6 @@ public class LikeService {
 
     public static List<GameListDTO> requestLikedLists (List<String> likedListsIds) {
         List<GameListDTO> likedLists = new ArrayList<>();
-
         try {
             likedListsIds.forEach(likedListId -> {
                 ResponseEntity<GameListDTO> gameListResponse = null;
