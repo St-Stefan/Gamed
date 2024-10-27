@@ -82,6 +82,27 @@ public class PostRequestResponseModel {
     @JsonProperty
     private boolean isReview = false;
 
+    public boolean isListLike() {
+        return isListLike;
+    }
+
+    public void setListLike(boolean listLike) {
+        isListLike = listLike;
+    }
+
+    public boolean isGameLike() {
+        return isGameLike;
+    }
+
+    public void setGameLike(boolean gameLike) {
+        isGameLike = gameLike;
+    }
+
+    @JsonProperty
+    private boolean isListLike = false;
+    @JsonProperty
+    private boolean isGameLike = false;
+
     public List<GameDTO> getGames() {
         return games;
     }

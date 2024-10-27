@@ -20,11 +20,11 @@ import java.util.Objects;
 
 @Service
 public class UserRetrievalService {
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final String userDatabaseURL = "http://localhost:8090/users";
-    private final String followServiceURL = "http://localhost:8090/user/followed-users";
-    private final String reviewServiceURL = "http://localhost:8091/reviews";
-    private final String gameServiceURL = "http://localhost:8092/games/";
+    private final static RestTemplate restTemplate = new RestTemplate();
+    private final static String userDatabaseURL = "http://localhost:8090/users";
+    private final static String followServiceURL = "http://localhost:8090/user/followed-users";
+    private final static String reviewServiceURL = "http://localhost:8091/reviews";
+    private final static String gameServiceURL = "http://localhost:8092/games/";
 
     public UserDTO retrieveUser(String UID) {
         ResponseEntity<UserDTO> response;
@@ -99,7 +99,9 @@ public class UserRetrievalService {
         return postList;
     }
 
-    public GameDTO retrieveGame(String gameID) {
+
+
+    public static GameDTO retrieveGame(String gameID) {
         ResponseEntity<GameDTO> response;
 
         try{

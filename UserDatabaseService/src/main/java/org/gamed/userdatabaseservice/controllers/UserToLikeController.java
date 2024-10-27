@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,10 +69,10 @@ public class UserToLikeController {
      * @return List of liked items
      */
     @GetMapping("/{userId}/liked-items")
-    public ResponseEntity<List<String>> getLikedItems(@PathVariable String userId) {
+    public ResponseEntity<List<UserToLike>> getLikedItems(@PathVariable String userId) {
         try {
             List<UserToLike> likedItems = likeService.getLikedItems(userId);
-            return ResponseEntity.ok(likedItems.stream().map(UserToLike::getItemId).collect(Collectors.toList()));
+            return ResponseEntity.ok(likedItems);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
