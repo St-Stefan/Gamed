@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,7 +41,9 @@ public class PlaytimeService {
             String playtimeId = (String) playtime.get("id");
             int time = (int) playtime.get("playtime");
             String gameId = (String) playtime.get("gameId");
-            PlaytimeDTO playtimeDTO = new PlaytimeDTO(userId, playtimeId, gameId, time);
+            LocalDateTime timeCreated = LocalDateTime.parse((String) playtime.get("timeCreated"));
+            LocalDateTime timeModified = LocalDateTime.parse((String) playtime.get("timeModified"));
+            PlaytimeDTO playtimeDTO = new PlaytimeDTO(userId, playtimeId, gameId, time, timeCreated, timeModified);
             playtimes.add(playtimeDTO);
         });
 

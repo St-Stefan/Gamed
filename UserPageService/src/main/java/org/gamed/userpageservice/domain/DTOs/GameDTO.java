@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class GameDTO {
 
@@ -18,10 +19,8 @@ public class GameDTO {
 
     private String developer;
 
-    @Setter
     private LocalDateTime releaseDate;
 
-    @Setter
     private String platforms;
 
     public GameDTO(String id, String name, String developer, LocalDateTime releaseDate, String platforms) {

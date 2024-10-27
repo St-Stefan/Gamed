@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlaytimeDTO {
@@ -18,18 +19,19 @@ public class PlaytimeDTO {
 
     private String gameId;
 
-    @Setter
     private int playtime;
 
-    private LocalDateTime time_created;
+    private LocalDateTime timeCreated;
 
-    private LocalDateTime time_modified;
+    private LocalDateTime timeModified;
 
-    public PlaytimeDTO(String userId, String id, String gameId, int playtime) {
+    public PlaytimeDTO(String userId, String id, String gameId, int playtime, LocalDateTime timeCreated, LocalDateTime timeModified) {
         this.user = userId;
         this.id = id;
         this.gameId = gameId;
         this.playtime = playtime;
+        this.timeCreated = timeCreated;
+        this.timeModified = timeModified;
     }
 
     @Override
@@ -52,8 +54,8 @@ public class PlaytimeDTO {
                 ", user=" + user +
                 ", game_id='" + gameId + '\'' +
                 ", playtime=" + playtime +
-                ", time_created=" + time_created +
-                ", time_modified=" + time_modified +
+                ", time_created=" + timeCreated +
+                ", time_modified=" + timeModified +
                 '}';
     }
 }
