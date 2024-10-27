@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/user/likes")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserToLikeController {
 
     private final transient UserToLikeService likeService;

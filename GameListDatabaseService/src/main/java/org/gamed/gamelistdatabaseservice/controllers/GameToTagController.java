@@ -16,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/gameToTags")
+@CrossOrigin(origins = "http://localhost:5173")
 public class GameToTagController {
 
     private final GameToTagService gameToTagService;
