@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.AbstractMap.SimpleEntry;
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -128,7 +128,7 @@ public class UserToLikeControllerIntegrationTests {
      */
     @Test
     public void testGetLikedItems_Success() {
-        // Arrange
+// Arrange
         String userId = "user123";
         UserToLike like1 = new UserToLike(new User().getId(), "item456", "post");
         UserToLike like2 = new UserToLike(new User().getId(), "item789", "comment");
@@ -137,8 +137,8 @@ public class UserToLikeControllerIntegrationTests {
         when(likeService.getLikedItems(userId)).thenReturn(mockLikedItems);
 
         // Act
-        ResponseEntity<List<SimpleEntry<String, String>>> response = likeController.getLikedItems(userId);
-        List<String> itemIds = response.getBody().stream().map(SimpleEntry::getKey).toList();
+        ResponseEntity<List<UserToLike  >> response = likeController.getLikedItems(userId);
+        List<String> itemIds = response.getBody().stream().map(UserToLike::getItemId).toList();
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());

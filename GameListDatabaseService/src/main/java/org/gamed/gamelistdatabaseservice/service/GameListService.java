@@ -135,4 +135,11 @@ public class GameListService {
         }
         return list;
     }
+    /**
+     * Retrieves all existing lists.
+     * @return all existing lists
+     */
+    public List<GameList> getAllLists() {
+        return gameListRepository.findAll();
+    }
 }

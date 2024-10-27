@@ -1,5 +1,8 @@
 package org.gamed.timelineservice.services;
 
+import org.gamed.timelineservice.adapters.GameListDTOToPostAdapter;
+import org.gamed.timelineservice.domain.GameDTO;
+import org.gamed.timelineservice.domain.GameListDTO;
 import org.gamed.timelineservice.domain.ReviewDTO;
 import org.gamed.timelineservice.domain.UserDTO;
 import org.gamed.timelineservice.models.PostRequestResponseModel;
@@ -17,10 +20,11 @@ import java.util.Objects;
 
 @Service
 public class UserRetrievalService {
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final String userDatabaseURL = "http://localhost:8090/users";
-    private final String followServiceURL = "http://localhost:8090/user/follow";
-    private final String reviewServiceURL = "http://localhost:8091/reviews";
+    private final static RestTemplate restTemplate = new RestTemplate();
+    private final static String userDatabaseURL = "http://localhost:8090/users";
+    private final static String followServiceURL = "http://localhost:8090/user/followed-users";
+    private final static String reviewServiceURL = "http://localhost:8091/reviews";
+    private final static String gameServiceURL = "http://localhost:8092/games/";
 
     public UserDTO retrieveUser(String UID) {
         ResponseEntity<UserDTO> response;
@@ -55,7 +59,6 @@ public class UserRetrievalService {
             } catch (HttpClientErrorException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println(response.getBody().getFirst().toString());
             posts.addAll(Objects.requireNonNull(response.getBody()));
 
 
@@ -63,11 +66,51 @@ public class UserRetrievalService {
         List<PostRequestResponseModel> postList = new ArrayList<>();
         for(ReviewDTO review : posts){
             UserDTO author = this.retrieveUser(review.getUserId());
-            PostRequestResponseModel newPost = new PostRequestResponseModel(review.getGameId(),review.getDescription(),author.getName(),review.getTimeCreated().toString(),0);
+            GameDTO game = this.retrieveGame(review.getGameId());
+            List<GameDTO> reviewed = new ArrayList<>();
+            reviewed.add(game);
+
+            PostRequestResponseModel newPost = new PostRequestResponseModel(review.getGameId(),review.getDescription(),author.getName(),review.getTimeCreated(),0);
+            newPost.setUser(author);
+            newPost.setGames(reviewed);
+            newPost.setList(false);
+            newPost.setReview(true);
             postList.add(newPost);
         }
 
         return postList;
     }
+
+    public List<PostRequestResponseModel> retrieveAllLists(List<String> followList) {
+
+        List<GameListDTO> posts = new ArrayList<>();
+
+        for(String uid : followList){
+            List<GameListDTO> allForUser = ListRetrievalService.requestUserCreatedLists(uid);
+            if(allForUser!=null)
+                posts.addAll(allForUser);
+        }
+        List<PostRequestResponseModel> postList = new ArrayList<>();
+        for(GameListDTO list : posts){
+            UserDTO author = this.retrieveUser(list.getUserId());
+            PostRequestResponseModel postFromList = GameListDTOToPostAdapter.convert(list,author);
+            postList.add(postFromList);
+        }
+        return postList;
+    }
+
+
+
+    public static GameDTO retrieveGame(String gameID) {
+        ResponseEntity<GameDTO> response;
+
+        try{
+            response = restTemplate.getForEntity(gameServiceURL+"/"+gameID, GameDTO.class);
+        } catch (HttpClientErrorException e) {
+            throw new RuntimeException(e);
+        }
+        return response.getBody();
+    }
+
 
 }

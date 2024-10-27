@@ -5,34 +5,34 @@ import SampleCard from "@/components/ListCard.vue";
 import TopBar from "@/components/TopBar.vue";
 import ListCard from "@/components/ListCard.vue";
 import AuthenticationPage from "@/components/authentication/AuthenticationPage.vue";
+import UserInfoPanel from "@/components/home/UserInfoPanel.vue";
 </script>
 
 <template>
-    <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged"/>
-
+  <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged" />
   <div class="flex flex-col h-screen">
-    <div class="flex-1 overflow-y-auto">
-      <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
-        <top-bar @uidChanged="onUIDChanged"/>
+    <div class="flex-1 overflow-y-auto bg-gImage bg-cover">
+      <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
+        <TopBar @uidChanged="onUIDChanged"/>
       </div>
       <div class="flex pl-20 pr-20">
-        <div class="w-2/3 flex-none grid place-items-center p-10 gap-10">
-          <ListCard v-for="post in posts" :text="post.content" :username="post.author" />
+        <!-- Posts List -->
+        <div class="w-2/3 flex-none grid place-items-center pt-10 pb-10 gap-10">
+          <ListCard
+              v-for="post in posts"
+              :key="post.id"
+              :post="post"
+              @select-post="handleSelectPost(post)"
+          />
         </div>
-<!--        <div v-if="loading" class="w-2/3 flex-none grid place-items-center p-10 gap-10">-->
-<!--          Loading posts...-->
-<!--        </div>-->
-<!--        <div v-else>-->
-<!--          <div v-for="post in posts" :key="post.title" class="w-2/3 flex-none grid place-items-center p-10 gap-10">-->
-<!--            <ListCard text={{post.text}} :username="post.author" class="w-2/3" />-->
-
-<!--          </div>-->
-<!--        </div>-->
-
 
         <div class="divider divider-horizontal"></div>
 
+        <!-- User Info Panel -->
         <div class="flex-1 rounded-box place-items-center">
+          <div class="sticky top-20">
+            <UserInfoPanel :user="selectedAuthor" />
+          </div>
         </div>
       </div>
     </div>
@@ -47,6 +47,7 @@ export default {
       loadedUID: false,
       loading: true,
       error: null,
+      selectedAuthor: null,
     };
   },
   created() {
@@ -65,6 +66,7 @@ export default {
              })
              .then((data) => {
                this.posts = data;
+               console.log(data)
              })
              .catch((error) => {
                this.error = error.message || 'An error occurred while fetching posts.';
@@ -73,7 +75,12 @@ export default {
                this.loading = false;
              });
        }
-    }
+    },
+    handleSelectPost(post) {
+      // Update the selected user when a post is selected
+      console.log("here")
+      this.selectedAuthor = post.user;
+    },
   }
 };
 </script>

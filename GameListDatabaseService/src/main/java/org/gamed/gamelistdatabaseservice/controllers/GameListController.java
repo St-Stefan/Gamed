@@ -92,22 +92,6 @@ public class GameListController {
     }
 
     /**
-     * Endpoint to get all lists created by a user.
-     *
-     * @param userId the ID of the user to get the lists from
-     * @return HTTP status OK if the operation succeeds
-     */
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<GameList>> getListByUserId(@PathVariable String userId) {
-        try {
-            List<GameList> listOfLists = gameListService.getListsByUserId(userId);
-            return ResponseEntity.ok(listOfLists);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
-    /**
      * Endpoint to get all existing lists.
      *
      * @return HTTP status OK if the operation succeeds
@@ -122,4 +106,19 @@ public class GameListController {
         }
     }
 
+    /**
+     * Endpoint to get all lists created by a user.
+     *
+     * @param userId the ID of the user to get the lists from
+     * @return HTTP status OK if the operation succeeds
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<GameList>> getListByUserId(@PathVariable String userId) {
+        try {
+            List<GameList> listOfLists = gameListService.getListsByUserId(userId);
+            return ResponseEntity.ok(listOfLists);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }
