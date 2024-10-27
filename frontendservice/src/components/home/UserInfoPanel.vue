@@ -1,5 +1,5 @@
 <template>
-  <div class="user-info-panel p-6 rounded-lg">
+  <div class="user-info-panel p-6 rounded-lg select-none">
     <template v-if="user">
       <h2 class="text-2xl font-semibold mb-4">User Information</h2>
       <div class="flex items-start">
