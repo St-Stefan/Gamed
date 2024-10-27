@@ -90,6 +90,22 @@ public class GameController {
     }
 
     /**
+     * Endpoint to get a list of games that match a certain query string.
+     *
+     * @param query the query string
+     * @return a list of all Game objects that match the query
+     */
+    @GetMapping("/search/{query}")
+    public ResponseEntity<List<Game>> getGamesByQuery(@PathVariable String query) {
+        try {
+            List<Game> games = gameService.getGamesByQuery(query);
+            return ResponseEntity.ok(games);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    /**
      * Endpoint to delete a game by ID.
      *
      * @param gameId the ID of the game to be deleted
