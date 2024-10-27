@@ -1,12 +1,20 @@
 <template>
-  <div class="p-6">
+<!--  <div class="p-6">-->
+  <div v-if="!loadedUID">
+    <AuthenticationPage @uidChanged="getGame" />
+  </div>
+  <div v-else class="flex flex-col h-screen bg-base-200">
+    <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
+      <TopBar @uidChanged="getGame" />
+    </div>
+
     <div v-if="this.loading" class="flex flex-col items-center justify-center h-full">
       <p class="text-xl mb-4">Loading</p>
       <span class="loading loading-spinner loading-lg"></span>
     </div>
 
     <div v-else>
-      <div v-if="game !== null" class="game-container bg-base-200 p-4 rounded-lg shadow-md flex items-center">
+      <div v-if="game !== null" class="game-container bg-base-100 p-4 rounded-lg shadow-md flex items-center">
         <img src="../../pics/game.png" alt="Game Image" class="game-image rounded-lg" />
         <div class="game-details ml-6">
           <h3 class="text-3xl font-bold">{{ game.name }}</h3>
@@ -20,40 +28,49 @@
       </div>
     </div>
   </div>
-
+<!--  </div>-->
 <!--  reviews component -->
 
 </template>
 
 <script>
+import TopBar from "@/components/TopBar.vue";
+import AuthenticationPage from "@/components/authentication/AuthenticationPage.vue";
+
 export default {
   name: "GameDetails",
+  components: {AuthenticationPage, TopBar},
   data() {
     return {
       game: null,
-      loading: true
+      loading: true,
+      loadedUID: false
     };
   },
-  async created() {
+  created() {
     const gameId = this.$route.params.gameId
-    await this.getGame(gameId);
+    this.getGame(gameId);
   },
   methods: {
-    async getGame(gameId) {
-      fetch("http://localhost:8092/games/" + gameId)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((game) => {
-            this.game = game;
-            console.log(this.game)
-          })
-          .finally(() => {
-            this.loading = false
-          })
+    getGame(gameId) {
+      this.loadedUID = localStorage.getItem("GamedUID") != null;
+
+      if(this.loadedUID) {
+        fetch("http://localhost:8092/games/" + gameId)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((game) => {
+              this.game = game;
+              console.log(this.game)
+            })
+            .finally(() => {
+              this.loading = false
+            })
+      }
     },
     formatDate(dateString) {
       if (!dateString) return "N/A";
