@@ -2,6 +2,7 @@ package org.gamed.timelineservice.domain;
 
 import org.gamed.timelineservice.models.PostRequestResponseModel;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Post {
@@ -9,7 +10,7 @@ public class Post {
     private String postId;
     private String userId;
     private String postText;
-    private Date postDate;
+    private LocalDateTime postDate;
     private int likes = 0;
 
     public String getUserId() {
@@ -31,14 +32,14 @@ public class Post {
     public void setPostText(String postText) {
         this.postText = postText;
     }
-    public Date getPostDate() {
+    public LocalDateTime getPostDate() {
         return postDate;
     }
-    public void setPostDate(Date postDate) {
+    public void setPostDate(LocalDateTime postDate) {
         this.postDate = postDate;
     }
 
     public PostRequestResponseModel toResponseModel(){
-        return new PostRequestResponseModel(postDate.toString(),postText,userId,postDate.toString(), likes);
+        return new PostRequestResponseModel(postDate.toString(),postText,userId,postDate, likes);
     }
 }
