@@ -2,6 +2,7 @@ package org.gamed.searchservice.service;
 
 import org.gamed.searchservice.domain.GameDTO;
 import org.gamed.searchservice.models.SearchResponseModel;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,17 @@ public class SearchService {
     private final String gameDatabase = "http://localhost:8092/games/search/";
 
     public List<SearchResponseModel> searchGames(String query) {
-        ResponseEntity<List> response;
+        ResponseEntity<List<GameDTO>> response;
 
         try {
             response = restTemplate.exchange(
                     gameDatabase + query,
-                HttpMethod.GET,
-                null,
-                List.class
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<>() {}
             );
         } catch (HttpClientErrorException e) {
+            e.printStackTrace();
             return null;
         }
 
