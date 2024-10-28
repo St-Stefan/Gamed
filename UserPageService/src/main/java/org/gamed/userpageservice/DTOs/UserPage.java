@@ -1,11 +1,7 @@
-package org.gamed.userpageservice.domain;
+package org.gamed.userpageservice.DTOs;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.gamed.userpageservice.domain.DTOs.GameDTO;
-import org.gamed.userpageservice.domain.DTOs.GameListDTO;
-import org.gamed.userpageservice.domain.DTOs.PlaytimeDTO;
-import org.gamed.userpageservice.domain.DTOs.UserDTO;
 
 import java.util.List;
 import java.util.Objects;

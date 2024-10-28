@@ -113,14 +113,6 @@ public class GameListService {
     }
 
     /**
-     * Retrieves all existing lists.
-     * @return all existing lists
-     */
-    public List<GameList> getAllLists() {
-        return gameListRepository.findAll();
-    }
-
-    /**
      * Retrieves a list by its user ID and name.
      *
      * @param userId the ID of the user

@@ -36,7 +36,11 @@
     <!-- Left Side: Logo and Search Bar -->
     <div class="flex-1 flex items-center">
       <!-- Logo -->
-      <a class="btn btn-ghost text-3xl font-bold">Gamed</a>
+      <router-link :to="{ name: 'Home' }"
+                   class="btn btn-ghost text-3xl font-bold">
+        Gamed
+      </router-link>
+
       <!-- Search Bar -->
       <div class="ml-8 flex-1">
         <input
@@ -50,7 +54,10 @@
     <!-- Right Side: Menu Options and Avatar -->
     <div class="flex-none flex items-center gap-4">
       <!-- Menu Options -->
-      <a class="btn btn-ghost text-xl normal-case" href="#profile">Profile</a>
+      <router-link :to="{ name: 'UserPage' }"
+                    class="btn btn-ghost text-xl normal-case">
+        Profile
+      </router-link>
       <a class="btn btn-ghost text-xl normal-case" href="#settings">Settings</a>
 
       <!-- Avatar with Logout Dropdown -->

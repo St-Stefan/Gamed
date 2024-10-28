@@ -1,8 +1,9 @@
 package org.gamed.userpageservice.services;
 
-import org.gamed.userpageservice.domain.DTOs.PlaytimeDTO;
+import org.gamed.userpageservice.DTOs.PlaytimeDTO;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,15 +12,16 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+@Service
 public class PlaytimeService {
-    private static final String userPlaytimeDatabaseUrl = "http://localhost:8090/user/playtime";
-    private static RestTemplate restTemplate = new RestTemplate();
+    private final String userPlaytimeDatabaseUrl = "http://localhost:8090/user/playtime";
+    private final RestTemplate restTemplate;
 
     public PlaytimeService(RestTemplate rest) {
         restTemplate = rest;
     }
 
-    public static List<PlaytimeDTO> requestPlaytime (String userId) {
+    public List<PlaytimeDTO> requestPlaytime (String userId) {
         ResponseEntity<List> response = null;
 
         try {
