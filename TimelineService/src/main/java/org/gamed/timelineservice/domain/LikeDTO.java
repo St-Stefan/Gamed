@@ -5,6 +5,22 @@ import java.time.LocalDateTime;
 public class LikeDTO {
     private String id;
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     private String user;
 
     private String itemId;
