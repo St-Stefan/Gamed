@@ -18,14 +18,17 @@ import java.util.*;
 @Service
 public class LikeRetrievalService {
 
-    private static final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private final UserRetrievalService userRetrievalService;
+    private final ListRetrievalService listRetrievalService;
 
-    public LikeRetrievalService(UserRetrievalService userRetrievalService) {
+    public LikeRetrievalService(UserRetrievalService userRetrievalService, RestTemplate rest, ListRetrievalService listRetrievalService) {
         this.userRetrievalService = userRetrievalService;
+        restTemplate = rest;
+        this.listRetrievalService = listRetrievalService;
     }
 
-    public static List<LikeDTO> requestLikes(String userId) {
+    public List<LikeDTO> requestLikes(String userId) {
         String likeDatabaseURL = "http://localhost:8090";
         try {
             ResponseEntity<List<LikeDTO>> response = restTemplate.exchange(
@@ -63,7 +66,7 @@ public class LikeRetrievalService {
         // Retrieve the liked item based on type
         switch (likeDTO.getType().toLowerCase()) {
             case "game":
-                GameDTO game = UserRetrievalService.retrieveGame(likeDTO.getItemId());
+                GameDTO game = userRetrievalService.retrieveGame(likeDTO.getItemId());
                 if (game != null) {
                     title = game.getName();
                     content = user.getName() + " likes the game:";
@@ -76,7 +79,7 @@ public class LikeRetrievalService {
                 break;
 
             case "list":
-                GameListDTO list = ListRetrievalService.retrieveList(likeDTO.getItemId());
+                GameListDTO list = listRetrievalService.retrieveList(likeDTO.getItemId());
                 if (list != null) {
                     title = list.getName();
                     content = user.getName() + " has liked the list " +list.getDescription();
