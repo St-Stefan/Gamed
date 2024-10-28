@@ -3,8 +3,8 @@
     <AuthenticationPage @uidChanged="getProfile" />
   </div>
 
-  <div v-else class="flex flex-col h-screen bg-base-200">
-    <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
+  <div v-else class="flex-1 overflow-y-auto bg-gImage bg-cover">
+    <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
       <TopBar @uidChanged="getProfile" />
     </div>
 
@@ -18,7 +18,7 @@
       <!-- User Info -->
       <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 pr-4 mb-6">
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
             <div class="card-body flex items-center">
               <div class="avatar mr-4">
                 <div class="w-24 rounded-full">
@@ -37,7 +37,7 @@
         <div class="w-full md:w-1/2 flex flex-wrap">
           <!-- Followers -->
           <div class="w-full md:w-1/3 mb-6 pr-4">
-            <div class="card bg-base-100 shadow-xl h-full">
+            <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
               <div class="card-body">
                 <h2 class="card-title">Followers</h2>
                 <div v-if="followerUsers.length">
@@ -59,7 +59,7 @@
 
           <!-- Followed Users -->
           <div class="w-full md:w-1/3 mb-6 pr-4">
-            <div class="card bg-base-100 shadow-xl h-full">
+            <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
               <div class="card-body">
                 <h2 class="card-title">Followed Users</h2>
                 <div v-if="followedUsers.length">
@@ -81,7 +81,7 @@
 
           <!-- Liked Games -->
           <div class="w-full md:w-1/3 pr-4 mb-6">
-            <div class="card bg-base-100 shadow-xl h-full">
+            <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
               <div class="card-body">
                 <h2 class="card-title">Liked Games</h2>
                 <div v-if="likedGames.length">
@@ -109,11 +109,11 @@
       <div class="flex flex-wrap items-stretch">
         <!-- Followed Lists -->
         <div class="w-full md:w-1/3 pr-4 mb-6">
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
             <div class="card-body">
               <h2 class="card-title">Followed Lists</h2>
               <div v-if="followedLists.length">
-                <div v-for="list in followedLists" :key="list.id" class="card bg-base-200 my-2">
+                <div v-for="list in followedLists" :key="list.id" class="card bg-base-200/80 my-2">
                   <div class="p-2 flex justify-between">
                     <router-link :to="{ name: 'ListPage', params: {listId: list.id}}"
                                  @click.native="sendListId(list.id)">
@@ -149,11 +149,11 @@
 
         <!-- Liked Lists -->
         <div class="w-full md:w-1/3 pr-4 mb-6">
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
             <div class="card-body">
               <h2 class="card-title">Liked Lists</h2>
               <div v-if="likedLists.length">
-                <div v-for="list in likedLists" :key="list.id" class="card bg-base-200 my-2">
+                <div v-for="list in likedLists" :key="list.id" class="card bg-base-200/80 my-2">
                   <div class="p-2 flex justify-between">
                     <router-link :to="{ name: 'ListPage', params: {listId: list.id}}"
                                  @click.native="sendListId(list.id)">
@@ -188,11 +188,11 @@
 
         <!-- Created Game Lists -->
         <div class="w-full md:w-1/3 pr-4 mb-6">
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
             <div class="card-body">
               <h2 class="card-title">User Created Lists</h2>
               <div v-if="createdGameLists.length">
-                <div v-for="list in createdGameLists" :key="list.id" class="card bg-base-200 my-2">
+                <div v-for="list in createdGameLists" :key="list.id" class="card bg-base-200/80 my-2">
                   <div class="p-2 flex justify-between">
                     <router-link :to="{ name: 'ListPage', params: {listId: list.id}}"
                                  @click.native="sendListId(list.id)">
@@ -230,7 +230,7 @@
       <!-- Playtimes -->
       <div class="flex flex-wrap items-stretch">
         <div class="w-full md:w-1/2 pr-4 mb-6">
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100/30 backdrop-blur-xl border border-gray-700 h-full">
             <div class="card-body">
               <h2 class="card-title">Playtimes</h2>
               <div v-if="playtimes.length">

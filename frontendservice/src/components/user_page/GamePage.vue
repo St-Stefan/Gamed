@@ -3,8 +3,8 @@
   <div v-if="!loadedUID">
     <AuthenticationPage @uidChanged="getGame" />
   </div>
-  <div v-else class="flex flex-col h-screen bg-base-200">
-    <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
+  <div v-else class="flex-1 overflow-y-auto bg-gImage bg-cover">
+    <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
       <TopBar @uidChanged="getGame" />
     </div>
 
@@ -14,7 +14,7 @@
     </div>
 
     <div v-else>
-      <div v-if="game !== null" class="game-container bg-base-100 p-4 rounded-lg shadow-md flex items-center">
+      <div v-if="game !== null" class="game-container bg-base-100/30 p-4 rounded-lg shadow-md flex items-center">
         <img src="../../pics/game.png" alt="Game Image" class="game-image rounded-lg" />
         <div class="game-details ml-6">
           <h3 class="text-3xl font-bold">{{ game.name }}</h3>

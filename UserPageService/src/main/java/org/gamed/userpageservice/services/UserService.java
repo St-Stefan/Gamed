@@ -1,11 +1,12 @@
 package org.gamed.userpageservice.services;
 
-import org.gamed.userpageservice.domain.DTOs.GameDTO;
-import org.gamed.userpageservice.domain.DTOs.GameListDTO;
-import org.gamed.userpageservice.domain.DTOs.UserDTO;
+import org.gamed.userpageservice.DTOs.GameDTO;
+import org.gamed.userpageservice.DTOs.GameListDTO;
+import org.gamed.userpageservice.DTOs.UserDTO;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,16 +15,17 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+@Service
 public class UserService {
-    private static RestTemplate restTemplate = new RestTemplate();
-    private static final String userDatabaseUrl = "http://localhost:8090/users";
-    private static final String gameListDatabaseUrl = "http://localhost:8092/lists";
+    private final RestTemplate restTemplate;
+    private final String userDatabaseUrl = "http://localhost:8090/users";
+    private final String gameListDatabaseUrl = "http://localhost:8092/lists";
 
     public UserService(RestTemplate rest) {
         restTemplate = rest;
     }
 
-    public static UserDTO requestUserInfo (String userId) {
+    public UserDTO requestUserInfo (String userId) {
         ResponseEntity<UserDTO> response = null;
 
         try {
@@ -40,7 +42,7 @@ public class UserService {
         return response.getBody();
     }
 
-    public static List<GameListDTO> requestUserCreatedLists (String userId) {
+    public List<GameListDTO> requestUserCreatedLists (String userId) {
         ResponseEntity<List> response = null;
 
         try {

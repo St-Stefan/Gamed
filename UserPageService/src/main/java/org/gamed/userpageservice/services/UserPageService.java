@@ -1,67 +1,69 @@
 package org.gamed.userpageservice.services;
 
-import org.gamed.userpageservice.domain.DTOs.GameDTO;
-import org.gamed.userpageservice.domain.DTOs.GameListDTO;
-import org.gamed.userpageservice.domain.DTOs.PlaytimeDTO;
-import org.gamed.userpageservice.domain.DTOs.UserDTO;
-import org.gamed.userpageservice.domain.UserPage;
+import org.gamed.userpageservice.DTOs.*;
+import org.gamed.userpageservice.DTOs.UserPage;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-
-import static org.gamed.userpageservice.services.FollowService.*;
-import static org.gamed.userpageservice.services.LikeService.*;
-import static org.gamed.userpageservice.services.PlaytimeService.requestPlaytime;
-import static org.gamed.userpageservice.services.UserService.requestUserCreatedLists;
-import static org.gamed.userpageservice.services.UserService.requestUserInfo;
 
 @Service
 public class UserPageService {
-    public static UserPage requestUserPage(String userId) {
-        UserDTO userDTO = requestUserInfo(userId);
+    private final FollowService followService;
+    private final UserService userService;
+    private final LikeService likeService;
+    private final PlaytimeService playtimeService;
+
+    public UserPageService(FollowService followService, UserService userService, LikeService likeService, PlaytimeService playtimeService) {
+        this.followService = followService;
+        this.userService = userService;
+        this.likeService = likeService;
+        this.playtimeService = playtimeService;
+    }
+
+    public UserPage requestUserPage(String userId) {
+        UserDTO userDTO = userService.requestUserInfo(userId);
 
         if (userDTO == null) {
             return null;
         }
 
-        List<LinkedHashMap<String, String>> userLikeInfo = requestUserLikeInfo(userId);
+        List<LikeDTO> userLikeInfo = likeService.requestUserLikeInfo(userId);
 
         List<String> likedGamesIds = new ArrayList<>();
         List<String> likedListsIds = new ArrayList<>();
 
 
-        for(LinkedHashMap<String, String> entry : userLikeInfo) {
-            String key = entry.sequencedKeySet().getFirst();
-            switch (entry.get(key)) {
-                    case "Game":
-                        likedGamesIds.add(key);
-                        break;
-                    case "List":
-                        likedListsIds.add(key);
-                        break;
-                }
+        for(LikeDTO entry : userLikeInfo) {
+            String type = entry.getType();
+            switch (type) {
+                case "Game":
+                    likedGamesIds.add(entry.getItemId());
+                    break;
+                case "List":
+                    likedListsIds.add(entry.getItemId());
+                    break;
+            }
         }
 
         List<GameDTO> gameDTO = new ArrayList<>();
         if (!likedGamesIds.isEmpty()) {
-            gameDTO = requestLikedGames(likedGamesIds);
+            gameDTO = likeService.requestLikedGames(likedGamesIds);
         }
 
         List<GameListDTO> gameListDTO = new ArrayList<>();
         if (!likedListsIds.isEmpty()) {
-            gameListDTO = requestLikedLists(likedListsIds);
+            gameListDTO = likeService.requestLikedLists(likedListsIds);
         }
 
-        List<UserDTO> followedUsers = requestFollowedUsers(userId);
-        List<UserDTO> followerUsers = requestFollowerUsers(userId);
+        List<UserDTO> followedUsers = followService.requestFollowedUsers(userId);
+        List<UserDTO> followerUsers = followService.requestFollowerUsers(userId);
 
-        List<GameListDTO> followedLists = requestFollowedLists(userId);
+        List<GameListDTO> followedLists = followService.requestFollowedLists(userId);
 
-        List<PlaytimeDTO> playtime = requestPlaytime(userId);
+        List<PlaytimeDTO> playtime = playtimeService.requestPlaytime(userId);
 
-        List<GameListDTO> createdGameLists = requestUserCreatedLists(userId);
+        List<GameListDTO> createdGameLists = userService.requestUserCreatedLists(userId);
 
         return new UserPage(userDTO, gameDTO, gameListDTO, followedUsers, followerUsers, followedLists, playtime,
                             createdGameLists);

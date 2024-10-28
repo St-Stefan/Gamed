@@ -1,4 +1,4 @@
-package org.gamed.userpageservice.domain.DTOs;
+package org.gamed.userpageservice.DTOs;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
