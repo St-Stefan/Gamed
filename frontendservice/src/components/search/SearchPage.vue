@@ -6,6 +6,10 @@ import TopBar from "@/components/TopBar.vue";
 import GameCard from "@/components/GameCard.vue";
 import AuthenticationPage from "@/components/authentication/AuthenticationPage.vue";
 import UserInfoPanel from "@/components/home/UserInfoPanel.vue";
+
+defineProps({
+  query: String
+})
 </script>
 
 <template>
@@ -42,9 +46,31 @@ export default {
     };
   },
   created() {
-    this.onUIDChanged()
+    this.getSearchResults()
   },
   methods:{
+    getSearchResults(){
+      this.loadedUID = localStorage.getItem("GamedUID")!=null;
+      if (this.loadedUID && localStorage.getItem(("query"))) {
+        fetch('http://localhost:8082/search/' + localStorage.getItem("query"))
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then((data) => {
+              this.games = data;
+              console.log(data)
+            })
+            .catch((error) => {
+              this.error = error.message || 'An error occurred while fetching posts.';
+            })
+            .finally(() => {
+              this.loading = false;
+            });
+      }
+    },
     onUIDChanged(){
        this.loadedUID = localStorage.getItem("GamedUID")!=null;
        if(this.loadedUID){
