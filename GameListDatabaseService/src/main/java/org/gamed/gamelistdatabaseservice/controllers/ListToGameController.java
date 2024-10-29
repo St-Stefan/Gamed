@@ -16,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/listToGames")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ListToGameController {
 
     private final ListToGameService listToGameService;
@@ -88,6 +89,22 @@ public class ListToGameController {
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    /**
+     * Endpoint to get ListToGame objects by list id
+     *
+     * @param listId id of the list
+     * @return a list of ListToGame objects
+     */
+    @GetMapping("/list/{listId}")
+    public ResponseEntity<List<ListToGame>> getGamesByList(@PathVariable String listId) {
+        try {
+            List<ListToGame> listToGames = listToGameService.getListToGamesByListId(listId);
+            return ResponseEntity.ok(listToGames);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 }

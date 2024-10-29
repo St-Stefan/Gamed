@@ -94,6 +94,16 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Review>> getAllReviewsForUser(@PathVariable String userId) {
+        try {
+            List<Review> reviews = reviewService.getReviewsByUserId(userId);
+            return ResponseEntity.ok(reviews);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     /**
      * Endpoint to delete a review by ID.
      *

@@ -9,11 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 /**
  * Controller for managing the List entity.
  */
 @RestController
 @RequestMapping("/lists")
+@CrossOrigin(origins = "http://localhost:5173")
 public class GameListController {
 
     private final GameListService gameListService;
@@ -87,4 +90,36 @@ public class GameListController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    /**
+     * Endpoint to get all lists created by a user.
+     *
+     * @param userId the ID of the user to get the lists from
+     * @return HTTP status OK if the operation succeeds
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<GameList>> getListByUserId(@PathVariable String userId) {
+        try {
+            List<GameList> listOfLists = gameListService.getListsByUserId(userId);
+            return ResponseEntity.ok(listOfLists);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    /**
+     * Endpoint to get all existing lists.
+     *
+     * @return HTTP status OK if the operation succeeds
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<GameList>> getAllLists() {
+        try {
+            List<GameList> lists = gameListService.getAllLists();
+            return ResponseEntity.ok(lists);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
 }
