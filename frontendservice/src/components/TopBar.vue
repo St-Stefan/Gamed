@@ -5,7 +5,7 @@
     </div>
     <div class="flex-none gap-2">
       <div class="form-control">
-        <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" @keyup.enter="submit" formaction="http://localhost:8082/search/{{ this.value }}" />
+        <input id="search-field" type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" @keyup.enter="search()" />
       </div>
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
@@ -38,7 +38,11 @@ export default {
         clearStorage(){
             localStorage.removeItem("GamedUID")
             this.$emit('uidChanged');
-        }
+        },
+      search() {
+          const query = document.getElementById('search-field').value;
+          this.$router.push({name: 'Search', params: {query: query}});
+      }
     }
 }
 
