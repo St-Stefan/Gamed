@@ -1,13 +1,11 @@
 package org.gamed.searchservice.controllers;
 
 
-import org.gamed.searchservice.domain.GameDTO;
 import org.gamed.searchservice.models.SearchResponseModel;
-import org.gamed.searchservice.service.SearchService;
+import org.gamed.searchservice.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
