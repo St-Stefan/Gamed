@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  timeline-service:
+    build:
+      context: ./TimelineService
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080" # Map internal port 8080 to external port 8081
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  review-writer-service:
+    build:
+      context: ./ReviewWriterService
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080" # Map internal port 8080 to external port 8082
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  search-service:
+    build:
+      context: ./SearchService
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080" # Map internal port 8080 to external port 8083
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  user-page-service:
+    build:
+      context: ./UserPageService
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8080" # Map internal port 8080 to external port 8084
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+networks:
+  default:
+    driver: bridge
