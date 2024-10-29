@@ -4,6 +4,9 @@ import HelloWorld from "@/components/HelloWorld.vue";
 import AuthenticationPage from "@/components/authentication/AuthenticationPage.vue";
 import HomePage from "@/components/home/HomePage.vue";
 import SearchPage from "@/components/search/SearchPage.vue";
+import UserPage from "@/components/user_page/UserPage.vue";
+import GamePage from "@/components/user_page/GamePage.vue";
+import ListPage from "@/components/user_page/ListPage.vue";
 const routes = [
     {
         path: '/',

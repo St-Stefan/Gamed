@@ -1,11 +1,23 @@
 <template>
-  <div class="navbar navbg-base-100 pr-20 pl-20">
-    <div class="flex-1">
-      <a class="btn btn-ghost text-xl font-bold">Gamed</a>
-    </div>
-    <div class="flex-none gap-2">
-      <div class="form-control">
-        <input id="search-field" type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" @keyup.enter="search()" />
+  <div class="navbar px-20">
+    <!-- Left Side: Logo and Search Bar -->
+    <div class="flex-1 flex items-center">
+      <!-- Logo -->
+      <router-link :to="{ name: 'Home' }"
+                   class="btn btn-ghost text-3xl font-bold">
+        Gamed
+      </router-link>
+
+      <!-- Search Bar -->
+      <div class="ml-8 flex-1">
+        <input
+            id="search-field"
+            type="text"
+            placeholder="Search"
+            class="input input-bordered w-full max-w-md"
+            @keyup.enter="search()"
+        />
+
       </div>
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
