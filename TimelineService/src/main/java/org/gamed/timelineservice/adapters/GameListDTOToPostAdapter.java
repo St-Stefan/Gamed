@@ -15,7 +15,7 @@ public class GameListDTOToPostAdapter {
                 gameListDTO.getName(),                // title
                 gameListDTO.getDescription(),         // content
                 userDTO.getName(),              // author
-                gameListDTO.getTime_created(), // timestamp
+                gameListDTO.getTimeCreated(), // timestamp
                 0                                     // likes, setting to 0 initially
         );
 
