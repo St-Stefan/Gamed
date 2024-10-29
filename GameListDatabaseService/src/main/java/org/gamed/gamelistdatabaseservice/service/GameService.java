@@ -139,4 +139,6 @@ public class GameService {
     public List<Game> getGamesByPlatform(String platform) {
         return gameRepository.getGamesByPlatform(platform);
     }
+
+    public List<Game> getGamesByQuery(String query) { return gameRepository.getGamesByQuery(query); }
 }

@@ -61,6 +61,14 @@
       <a class="btn btn-ghost text-xl normal-case" href="#settings">Settings</a>
 
       <!-- Avatar with Logout Dropdown -->
+  <div class="navbar navbg-base-100 pr-20 pl-20">
+    <div class="flex-1">
+      <a class="btn btn-ghost text-xl font-bold">Gamed</a>
+    </div>
+    <div class="flex-none gap-2">
+      <div class="form-control">
+        <input id="search-field" type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" @keyup.enter="search()" />
+      </div>
       <div class="dropdown dropdown-end">
         <button tabindex="0" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
@@ -77,6 +85,8 @@
           <li @click="clearStorage()">
             <a>Logout</a>
           </li>
+          <li><a>Settings</a></li>
+          <li @click="clearStorage()"><a>Logout</a></li>
         </ul>
       </div>
     </div>
@@ -85,12 +95,17 @@
 
 <script>
 export default {
-    methods:{
-        clearStorage(){
-            localStorage.removeItem("GamedUID")
-            this.$emit('uidChanged');
-        }
+  methods:{
+    clearStorage(){
+      localStorage.removeItem("GamedUID")
+      this.$emit('uidChanged');
+    },
+    search() {
+      const query = document.getElementById('search-field').value;
+      this.$router.push({name: 'Search', params: {query: query}});
+      this.$emit('searchChanged');
     }
+  }
 }
 
 </script>
