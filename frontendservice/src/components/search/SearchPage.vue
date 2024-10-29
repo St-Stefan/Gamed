@@ -17,7 +17,7 @@ defineProps({
   <div class="flex flex-col h-screen">
     <div class="flex-1 overflow-y-auto">
       <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
-        <top-bar @uidChanged="onUIDChanged"/>
+        <top-bar @uidChanged="onUIDChanged" @searchChanged="search"/>
       </div>
       <div class="flex pl-20 pr-20">
         <div class="w-2/3 flex-none grid place-items-center p-10 gap-10">
@@ -46,30 +46,28 @@ export default {
     };
   },
   created() {
-    this.getSearchResults()
+    this.onUIDChanged()
   },
   methods:{
-    getSearchResults(){
-      this.loadedUID = localStorage.getItem("GamedUID")!=null;
-      if (this.loadedUID && localStorage.getItem(("query"))) {
-        fetch('http://localhost:8082/search/' + localStorage.getItem("query"))
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.json();
-            })
-            .then((data) => {
-              this.games = data;
-              console.log(data)
-            })
-            .catch((error) => {
-              this.error = error.message || 'An error occurred while fetching posts.';
-            })
-            .finally(() => {
-              this.loading = false;
-            });
-      }
+    search(){
+      console.log('http://localhost:8082/search/' + this.$route.params.query)
+      fetch('http://localhost:8082/search/' + this.$route.params.query)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            this.games = data;
+            console.log(data)
+          })
+          .catch((error) => {
+            this.error = error.message || 'An error occurred while fetching posts.';
+          })
+          .finally(() => {
+            this.loading = false;
+          });
     },
     onUIDChanged(){
        this.loadedUID = localStorage.getItem("GamedUID")!=null;

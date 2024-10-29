@@ -34,16 +34,17 @@
 
 <script>
 export default {
-    methods:{
-        clearStorage(){
-            localStorage.removeItem("GamedUID")
-            this.$emit('uidChanged');
-        },
-      search() {
-          const query = document.getElementById('search-field').value;
-          this.$router.push({name: 'Search', params: {query: query}});
-      }
+  methods:{
+    clearStorage(){
+      localStorage.removeItem("GamedUID")
+      this.$emit('uidChanged');
+    },
+    search() {
+      const query = document.getElementById('search-field').value;
+      this.$router.push({name: 'Search', params: {query: query}});
+      this.$emit('searchChanged');
     }
+  }
 }
 
 </script>
