@@ -16,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user/followed-lists")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserToFollowedListController {
 
     private final transient UserToFollowedListService followedListService;

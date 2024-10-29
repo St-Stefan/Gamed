@@ -16,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/listToTags")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ListToTagController {
 
     private final ListToTagService listToTagService;
