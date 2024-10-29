@@ -13,18 +13,19 @@ defineProps({
 </script>
 
 <template>
+  <div class="flex-1 overflow-y-auto bg-gImage bg-cover h-screen">
     <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged"/>
-  <div class="flex flex-col h-screen">
-    <div class="flex-1 overflow-y-auto">
-      <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
-        <top-bar @uidChanged="onUIDChanged" @searchChanged="search"/>
+      <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
+        <TopBar @uidChanged="onUIDChanged" @searchChanged="search"/>
       </div>
-      <div class="flex pl-20 pr-20">
-        <div class="w-2/3 flex-none grid place-items-center p-10 gap-10">
+    <div class="flex pl-20 pr-20">
+      <div class="p-10">
+        <div class="text-xl font-semibold mb-4">
+          {{ games.length === 0 ? '0 results match your search' : games.length + ' results match your search' }}
+        </div>
+        <div class="flex flex-wrap gap-4 justify-center">
           <GameCard v-for="game in games" :game="game" />
         </div>
-
-        <div class="divider divider-horizontal"></div>
 
         <div class="flex-1 rounded-box place-items-center">
 
@@ -90,6 +91,7 @@ export default {
                this.loading = false;
              });
        }
+       this.search(this.$route.params.query)
     },
     handleSelectPost(post) {
       // Update the selected user when a post is selected

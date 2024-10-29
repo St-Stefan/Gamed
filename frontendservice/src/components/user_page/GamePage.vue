@@ -1,9 +1,10 @@
 <template>
 <!--  <div class="p-6">-->
+  <div class="flex-1 overflow-y-auto bg-gImage bg-cover h-screen">
   <div v-if="!loadedUID">
     <AuthenticationPage @uidChanged="getGame" />
   </div>
-  <div v-else class="flex-1 overflow-y-auto bg-gImage bg-cover">
+  <div v-else>
     <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
       <TopBar @uidChanged="getGame" />
     </div>
@@ -26,7 +27,11 @@
       <div v-else>
         <p>No game data available.</p>
       </div>
+      <div>
+        <div class="text-xl text"></div>
+      </div>
     </div>
+  </div>
   </div>
 <!--  </div>-->
 <!--  reviews component -->

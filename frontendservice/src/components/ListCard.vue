@@ -30,7 +30,7 @@ defineProps({
         Developer: {{ post.games[0].developer }}
       </p>
       <p class="text-sm text-gray-600">
-        Release Date: {{ formatDate(post.games[0].release_date) }}
+        Release Date: {{ formatDate(post.games[0].releaseDate) }}
       </p>
       <p class="text-sm text-gray-600">
         Platforms: {{ post.games[0].platforms }}
@@ -48,7 +48,8 @@ defineProps({
           Developer: {{ game.developer }}
         </p>
         <p class="text-sm text-gray-600">
-          Release Date: {{ formatDate(game.release_date) }}
+<!--          {{ game.release_date }}-->
+          Release Date: {{ formatDate(game.releaseDate) }}
         </p>
         <p class="text-sm text-gray-600">
           Platforms: {{ game.platforms }}
@@ -65,7 +66,7 @@ defineProps({
         Developer: {{ post.games[0].developer }}
       </p>
       <p class="text-sm text-gray-600">
-        Release Date: {{ formatDate(post.games[0].release_date) }}
+        Release Date: {{ formatDate(post.games[0].releaseDate) }}
       </p>
       <p class="text-sm text-gray-600">
         Platforms: {{ post.games[0].platforms }}
@@ -106,13 +107,16 @@ export default {
       this.$emit('select-post', this.post);
     },
     formatDate(date) {
+      console.log(date)
       // Implement your date formatting logic here
       return new Date(date).toLocaleDateString();
     },
     formatTimestamp(timestamp) {
       // Implement your timestamp formatting logic here
+      console.log(timestamp)
       return new Date(timestamp).toLocaleString();
     },
+
   },
 };
 </script>

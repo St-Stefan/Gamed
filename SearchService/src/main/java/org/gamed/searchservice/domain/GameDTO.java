@@ -1,7 +1,12 @@
 package org.gamed.searchservice.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class GameDTO {
     private String id;
 
@@ -29,13 +34,13 @@ public class GameDTO {
         this.developer = developer;
     }
 
-    public LocalDateTime getRelease_date() {
-        return release_date;
-    }
-
-    public void setRelease_date(LocalDateTime release_date) {
-        this.release_date = release_date;
-    }
+//    public LocalDateTime getRelease_date() {
+//        return release_date;
+//    }
+//
+//    public void setRelease_date(LocalDateTime release_date) {
+//        this.release_date = release_date;
+//    }
 
     public String getPlatforms() {
         return platforms;
@@ -47,7 +52,7 @@ public class GameDTO {
 
     private String name;
     private String developer;
-    private LocalDateTime release_date;
+    private LocalDateTime releaseDate;
     private String platforms;
 
     public GameDTO() {}
@@ -55,7 +60,7 @@ public class GameDTO {
     public GameDTO(String name, String developer, LocalDateTime release_date, String platforms) {
         this.name = name;
         this.developer = developer;
-        this.release_date = release_date;
+        this.releaseDate = release_date;
         this.platforms = platforms;
     }
 }
