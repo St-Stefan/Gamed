@@ -16,12 +16,16 @@ import java.util.List;
 
 @Service
 public class ListRetrievalService {
-    private static final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private final String userDatabaseURL = "http://localhost:8090/users";
     private final String followServiceURL = "http://localhost:8090/user/followed-users";
     private final String reviewServiceURL = "http://localhost:8091/reviews";
 
-    public static List<GameListDTO> requestUserCreatedLists (String userId) {
+    public ListRetrievalService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public List<GameListDTO> requestUserCreatedLists (String userId) {
         ResponseEntity<List> response = null;
 
         try {
@@ -73,7 +77,7 @@ public class ListRetrievalService {
         return createdGameLists;
     }
 
-    public static GameListDTO retrieveList(String listID){
+    public GameListDTO retrieveList(String listID){
 
         ResponseEntity<LinkedHashMap<String,Object>> response = null;
         response = restTemplate.exchange("http://localhost:8092/lists/"+listID,HttpMethod.GET,null,new ParameterizedTypeReference<>() {});
