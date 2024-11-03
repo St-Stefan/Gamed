@@ -50,22 +50,6 @@ public class GameListDTO {
         this.description = description;
     }
 
-//    public LocalDateTime getTime_created() {
-//        return time_created;
-//    }
-//
-//    public void setTime_created(LocalDateTime time_created) {
-//        this.time_created = time_created;
-//    }
-//
-//    public LocalDateTime getTime_modified() {
-//        return time_modified;
-//    }
-//
-//    public void setTime_modified(LocalDateTime time_modified) {
-//        this.time_modified = time_modified;
-//    }
-
     public List<GameDTO> getGames() {
         return games;
     }

@@ -34,14 +34,6 @@ public class GameDTO {
         this.developer = developer;
     }
 
-//    public LocalDateTime getRelease_date() {
-//        return release_date;
-//    }
-//
-//    public void setRelease_date(LocalDateTime release_date) {
-//        this.release_date = release_date;
-//    }
-
     public String getPlatforms() {
         return platforms;
     }

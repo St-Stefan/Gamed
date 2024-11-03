@@ -181,7 +181,7 @@
                 </div>
               </div>
               <div v-else>
-                <p>No followed lists.</p>
+                <p>No liked lists.</p>
               </div>
             </div>
           </div>
@@ -221,7 +221,7 @@
                 </div>
               </div>
               <div v-else>
-                <p>No followed lists.</p>
+                <p>No user created lists.</p>
               </div>
             </div>
           </div>
@@ -306,7 +306,6 @@ export default {
               return response.json();
             })
             .then((data) => {
-              console.log(data);
               this.user = data.userDTO;
               this.likedGames = data.likedGames;
               this.likedLists = data.likedLists;
