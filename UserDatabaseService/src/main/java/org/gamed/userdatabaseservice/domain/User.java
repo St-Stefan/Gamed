@@ -41,7 +41,7 @@ public class User {
 
     public User() {}
 
-    public User(String name, String email, String pwd_hash, boolean developer, boolean premium) {
+    public User(String name, String email, String pwd_hash, boolean developer, boolean premium  ) {
         this.name = name;
         this.email = email;
         this.pwd_hash = pwd_hash;

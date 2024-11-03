@@ -15,8 +15,20 @@ const routes = [
     },
     {
         path: '/Profile',
-        name: 'Profile',
-        component: HelloWorld,
+        name: 'UserPage',
+        component: UserPage,
+    },
+    {
+        path: '/Profile/GamePage/:gameId',
+        name: 'GamePage',
+        component: GamePage,
+        props: true
+    },
+    {
+        path: '/Profile/ListPage/:listId',
+        name: 'ListPage',
+        component: ListPage,
+        props: true
     },
     {
         path: '/Login',
