@@ -9,21 +9,30 @@ import UserInfoPanel from "@/components/home/UserInfoPanel.vue";
 </script>
 
 <template>
-    <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged"/>
+  <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged" />
   <div class="flex flex-col h-screen">
-    <div class="flex-1 overflow-y-auto">
-      <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/70 border-b border-gray-700">
-        <top-bar @uidChanged="onUIDChanged"/>
+    <div class="flex-1 overflow-y-auto bg-gImage bg-cover">
+      <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
+        <TopBar @uidChanged="onUIDChanged"/>
       </div>
       <div class="flex pl-20 pr-20">
-        <div class="w-2/3 flex-none grid place-items-center p-10 gap-10">
-          <ListCard v-for="post in posts" :post="post" @select-post="handleSelectPost(post)"/>
+        <!-- Posts List -->
+        <div class="w-2/3 flex-none grid place-items-center pt-10 pb-10 gap-10">
+          <ListCard
+              v-for="post in posts"
+              :key="post.id"
+              :post="post"
+              @select-post="handleSelectPost(post)"
+          />
         </div>
 
         <div class="divider divider-horizontal"></div>
 
+        <!-- User Info Panel -->
         <div class="flex-1 rounded-box place-items-center">
+          <div class="sticky top-20">
             <UserInfoPanel :user="selectedAuthor" />
+          </div>
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/games")
+@CrossOrigin(origins = "http://localhost:5173")
 public class GameController {
 
     private final GameService gameService;

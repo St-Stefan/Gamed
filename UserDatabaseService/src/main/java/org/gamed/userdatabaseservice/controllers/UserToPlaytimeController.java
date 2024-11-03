@@ -15,6 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user/playtime")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserToPlaytimeController {
 
     private final transient UserToPlaytimeService playtimeService;
