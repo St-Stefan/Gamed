@@ -14,8 +14,12 @@ import java.util.List;
 
 @Service
 public class SearchService {
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private final String gameDatabase = "http://localhost:8092/games/search/";
+
+    public SearchService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public List<SearchResponseModel> searchGames(String query) {
         ResponseEntity<List<GameDTO>> response;
