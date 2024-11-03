@@ -25,7 +25,6 @@ public class LikeDTO {
         this.user = user_id;
         this.itemId = item_id;
         this.type = type;
-//        this.time = LocalDateTime.now();
     }
 
     public String getId() {

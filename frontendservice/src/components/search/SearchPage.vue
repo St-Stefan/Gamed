@@ -51,7 +51,6 @@ export default {
   },
   methods:{
     search(){
-      console.log('http://localhost:8082/search/' + this.$route.params.query)
       fetch('http://localhost:8082/search/' + this.$route.params.query)
           .then((response) => {
             if (!response.ok) {
@@ -61,7 +60,6 @@ export default {
           })
           .then((data) => {
             this.games = data;
-            console.log(data)
           })
           .catch((error) => {
             this.error = error.message || 'An error occurred while fetching posts.';
@@ -82,7 +80,6 @@ export default {
              })
              .then((data) => {
                this.posts = data;
-               console.log(data)
              })
              .catch((error) => {
                this.error = error.message || 'An error occurred while fetching posts.';
@@ -94,8 +91,6 @@ export default {
        this.search(this.$route.params.query)
     },
     handleSelectPost(post) {
-      // Update the selected user when a post is selected
-      console.log("here")
       this.selectedAuthor = post.user;
     },
   }

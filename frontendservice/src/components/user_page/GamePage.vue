@@ -27,8 +27,9 @@
       <div v-else>
         <p>No game data available.</p>
       </div>
-      <div>
-        <div class="text-xl text"></div>
+      <div class="user-reviews mt-8 p-4 rounded-lg">
+        <h3 class="text-2xl font-semibold mb-2">User Reviews</h3>
+        <p class="text-lg italic text-gray-500">No reviews yet!</p>
       </div>
     </div>
   </div>
@@ -70,7 +71,6 @@ export default {
             })
             .then((game) => {
               this.game = game;
-              console.log(this.game)
             })
             .finally(() => {
               this.loading = false

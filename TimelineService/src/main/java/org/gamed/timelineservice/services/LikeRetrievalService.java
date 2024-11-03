@@ -48,10 +48,8 @@ public class LikeRetrievalService {
             throw new IllegalArgumentException("LikeDTO cannot be null");
         }
 
-        // Retrieve user information
         UserDTO user = userRetrievalService.retrieveUser(likeDTO.getUser());
 
-        // Initialize variables
         String title = null;
         String content = null;
         String author = user.getName();
@@ -63,7 +61,6 @@ public class LikeRetrievalService {
         boolean isGameLike = false;
         List<GameDTO> games = null;
 
-        // Retrieve the liked item based on type
         switch (likeDTO.getType().toLowerCase()) {
             case "game":
                 GameDTO game = userRetrievalService.retrieveGame(likeDTO.getItemId());
@@ -73,7 +70,6 @@ public class LikeRetrievalService {
                     likes = 0;
                     isReview = false;
                     isGameLike = true;
-                    // Wrap the game in a list
                     games = List.of(game);
                 }
                 break;
@@ -94,7 +90,6 @@ public class LikeRetrievalService {
                 throw new IllegalArgumentException("Unknown type: " + likeDTO.getType());
         }
 
-        // Create and populate the PostRequestResponseModel
         PostRequestResponseModel responseModel = new PostRequestResponseModel(title, content, author, timestamp, likes);
         responseModel.setUser(user);
         responseModel.setGames(games);

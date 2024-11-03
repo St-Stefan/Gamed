@@ -33,8 +33,6 @@ public class Rating {
         this.graph = graph;
     }
 
-    // Getters and setters
-
     public String getId() {
         return id;
     }

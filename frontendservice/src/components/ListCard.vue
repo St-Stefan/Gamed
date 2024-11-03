@@ -107,13 +107,11 @@ export default {
       this.$emit('select-post', this.post);
     },
     formatDate(date) {
-      console.log(date)
       // Implement your date formatting logic here
       return new Date(date).toLocaleDateString();
     },
     formatTimestamp(timestamp) {
       // Implement your timestamp formatting logic here
-      console.log(timestamp)
       return new Date(timestamp).toLocaleString();
     },
 

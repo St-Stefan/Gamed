@@ -36,7 +36,6 @@ export default {
   methods: {
     selectGame() {
       this.$emit('select-game', this.game);
-      console.log(this.game)
     },
     formatDate(dateString) {
       if (!dateString) return "N/A";

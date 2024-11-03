@@ -40,7 +40,6 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testCreateComment_Success() {
-        // Arrange
         CreateAndUpdateCommentRequestModel request = new CreateAndUpdateCommentRequestModel(
                 "user123",
                 "parent456",
@@ -55,10 +54,8 @@ public class CommentControllerIntegrationTests {
                 request.getDescription()
         )).thenReturn(mockComment);
 
-        // Act
         ResponseEntity<String> response = commentController.createComment(request);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(null, response.getBody());
         verify(commentService, times(1)).createComment(
@@ -73,7 +70,6 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testCreateComment_Failure() {
-        // Arrange
         CreateAndUpdateCommentRequestModel request = new CreateAndUpdateCommentRequestModel(
                 "user123",
                 "parent456",
@@ -86,7 +82,6 @@ public class CommentControllerIntegrationTests {
                 request.getDescription()
         )).thenThrow(new IllegalArgumentException("Invalid input data."));
 
-        // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
             commentController.createComment(request);
         });
@@ -105,7 +100,6 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testUpdateComment_Success() {
-        // Arrange
         String commentId = "comment789";
         CreateAndUpdateCommentRequestModel request = new CreateAndUpdateCommentRequestModel(
                 "user123",
@@ -115,10 +109,8 @@ public class CommentControllerIntegrationTests {
 
         when(commentService.updateComment(commentId, request.getDescription())).thenReturn(new Comment());
 
-        // Act
         HttpStatus response = commentController.updateComment(commentId, request);
 
-        // Assert
         assertEquals(HttpStatus.OK, response);
         verify(commentService, times(1)).updateComment(commentId, request.getDescription());
     }
@@ -128,7 +120,6 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testUpdateComment_CommentNotFound() {
-        // Arrange
         String commentId = "nonexistentComment";
         CreateAndUpdateCommentRequestModel request = new CreateAndUpdateCommentRequestModel(
                 "user123",
@@ -139,7 +130,6 @@ public class CommentControllerIntegrationTests {
         doThrow(new IllegalArgumentException("Comment not found."))
                 .when(commentService).updateComment(commentId, request.getDescription());
 
-        // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
             commentController.updateComment(commentId, request);
         });
@@ -154,16 +144,13 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testGetComment_Success() {
-        // Arrange
         String commentId = "comment789";
         Comment mockComment = new Comment("user123", "parent456", "This is a test comment.");
 
         when(commentService.getComment(commentId)).thenReturn(mockComment);
 
-        // Act
         ResponseEntity<Comment> response = commentController.getComment(commentId);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockComment, response.getBody());
         verify(commentService, times(1)).getComment(commentId);
@@ -174,13 +161,11 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testGetComment_NotFound() {
-        // Arrange
         String commentId = "nonexistentComment";
 
         when(commentService.getComment(commentId))
                 .thenThrow(new IllegalArgumentException("Comment not found."));
 
-        // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
             commentController.getComment(commentId);
         });
@@ -195,7 +180,6 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testGetCommentsByParentId_Success() {
-        // Arrange
         String parentId = "parent456";
         Comment comment1 = new Comment("user123", "parent456", "First comment.");
         Comment comment2 = new Comment("user456", "parent456", "Second comment.");
@@ -203,10 +187,8 @@ public class CommentControllerIntegrationTests {
 
         when(commentService.getCommentsByParentId(parentId)).thenReturn(mockComments);
 
-        // Act
         ResponseEntity<List<Comment>> response = commentController.getCommentsByParentId(parentId);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockComments, response.getBody());
         verify(commentService, times(1)).getCommentsByParentId(parentId);
@@ -217,13 +199,11 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testGetCommentsByParentId_NoComments() {
-        // Arrange
         String parentId = "parent456";
 
         when(commentService.getCommentsByParentId(parentId))
                 .thenThrow(new IllegalArgumentException("No comments found for the given parent ID."));
 
-        // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
             commentController.getCommentsByParentId(parentId);
         });
@@ -238,15 +218,12 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testDeleteComment_Success() {
-        // Arrange
         String commentId = "comment789";
 
         doNothing().when(commentService).deleteComment(commentId);
 
-        // Act
         HttpStatus response = commentController.deleteComment(commentId);
 
-        // Assert
         assertEquals(HttpStatus.OK, response);
         verify(commentService, times(1)).deleteComment(commentId);
     }
@@ -256,13 +233,11 @@ public class CommentControllerIntegrationTests {
      */
     @Test
     public void testDeleteComment_CommentNotFound() {
-        // Arrange
         String commentId = "nonexistentComment";
 
         doThrow(new IllegalArgumentException("Comment not found."))
                 .when(commentService).deleteComment(commentId);
 
-        // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
             commentController.deleteComment(commentId);
         });

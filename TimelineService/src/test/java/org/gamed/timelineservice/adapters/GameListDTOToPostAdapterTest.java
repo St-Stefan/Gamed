@@ -16,7 +16,6 @@ class GameListDTOToPostAdapterTest {
 
     @Test
     void testConvertBasicFields() {
-        // Arrange
         String id = "1";
         String userId = "user1";
         String name = "Game List Title";

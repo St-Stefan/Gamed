@@ -108,9 +108,7 @@ export default {
                 developer: false,
                 premium: false
             };
-            console.log(userdata);
             let UID = await AuthenticationService.createUser(userdata);
-            console.log(UID);
             localStorage.setItem("GamedUID",UID)
             this.$emit('uidChanged');
         },
