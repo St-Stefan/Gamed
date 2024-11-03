@@ -41,7 +41,6 @@ public class RatingControllerIntegrationTests {
      */
     @Test
     public void testCreateRating_Success() {
-        // Arrange
         String reviewId = "review123";
         CreateAndUpdateRatingRequestModel request = new CreateAndUpdateRatingRequestModel(
                 "Quality",
@@ -58,10 +57,8 @@ public class RatingControllerIntegrationTests {
                 request.getGraph()
         )).thenReturn(mockRating);
 
-        // Act
         ResponseEntity<String> response = ratingController.createRating(reviewId, request);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(null, response.getBody());
         verify(ratingService, times(1)).createRating(
@@ -77,7 +74,6 @@ public class RatingControllerIntegrationTests {
      */
     @Test
     public void testCreateRating_Failure() {
-        // Arrange
         String reviewId = "review123";
         CreateAndUpdateRatingRequestModel request = new CreateAndUpdateRatingRequestModel(
                 "Quality",
@@ -92,7 +88,6 @@ public class RatingControllerIntegrationTests {
                 request.getGraph()
         )).thenThrow(new IllegalArgumentException("Invalid rating data."));
 
-        // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
             ratingController.createRating(reviewId, request);
         });

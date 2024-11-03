@@ -13,7 +13,6 @@ public class RatingTest {
 
     @BeforeEach
     public void setUp() {
-        // Create a mock Review object using Mockito
         mockReview = Mockito.mock(Review.class);
         rating = new Rating(mockReview, "Gameplay", 8, "graphData");
     }

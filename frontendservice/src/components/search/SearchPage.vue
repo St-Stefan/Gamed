@@ -1,38 +1,34 @@
 <script setup>
 
 import WelcomeItem from "@/components/TopBar.vue";
-import SampleCard from "@/components/ListCard.vue";
+import SampleCard from "@/components/GameCard.vue";
 import TopBar from "@/components/TopBar.vue";
-import ListCard from "@/components/ListCard.vue";
+import GameCard from "@/components/GameCard.vue";
 import AuthenticationPage from "@/components/authentication/AuthenticationPage.vue";
 import UserInfoPanel from "@/components/home/UserInfoPanel.vue";
+
+defineProps({
+  query: String
+})
 </script>
 
 <template>
-  <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged" />
-  <div class="flex flex-col h-screen">
-    <div class="flex-1 overflow-y-auto bg-gImage bg-cover">
+  <div class="flex-1 overflow-y-auto bg-gImage bg-cover h-screen">
+    <AuthenticationPage v-if="!loadedUID" @uidChanged="onUIDChanged"/>
       <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
-        <TopBar @uidChanged="onUIDChanged"/>
+        <TopBar @uidChanged="onUIDChanged" @searchChanged="search"/>
       </div>
-      <div class="flex pl-20 pr-20">
-        <!-- Posts List -->
-        <div class="w-2/3 flex-none grid place-items-center pt-10 pb-10 gap-10">
-          <ListCard
-              v-for="post in posts"
-              :key="post.id"
-              :post="post"
-              @select-post="handleSelectPost(post)"
-          />
+    <div class="flex pl-20 pr-20">
+      <div class="p-10">
+        <div class="text-xl font-semibold mb-4">
+          {{ games.length === 0 ? '0 results match your search' : games.length + ' results match your search' }}
+        </div>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <GameCard v-for="game in games" :game="game" />
         </div>
 
-        <div class="divider divider-horizontal"></div>
-
-        <!-- User Info Panel -->
         <div class="flex-1 rounded-box place-items-center">
-          <div class="sticky top-20">
-            <UserInfoPanel :user="selectedAuthor" />
-          </div>
+
         </div>
       </div>
     </div>
@@ -43,17 +39,35 @@ import UserInfoPanel from "@/components/home/UserInfoPanel.vue";
 export default {
   data() {
     return {
-      posts: [],
+      query: null,
+      games: [],
       loadedUID: false,
       loading: true,
       error: null,
-      selectedAuthor: null,
     };
   },
   created() {
     this.onUIDChanged()
   },
   methods:{
+    search(){
+      fetch('http://localhost:8082/search/' + this.$route.params.query)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            this.games = data;
+          })
+          .catch((error) => {
+            this.error = error.message || 'An error occurred while fetching posts.';
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+    },
     onUIDChanged(){
        this.loadedUID = localStorage.getItem("GamedUID")!=null;
        if(this.loadedUID){
@@ -74,6 +88,7 @@ export default {
                this.loading = false;
              });
        }
+       this.search(this.$route.params.query)
     },
     handleSelectPost(post) {
       this.selectedAuthor = post.user;

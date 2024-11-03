@@ -101,7 +101,6 @@ public class User {
         return time_modified;
     }
 
-    // toString method for debugging
     @Override
     public String toString() {
         return "User{" +

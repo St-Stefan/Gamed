@@ -29,4 +29,7 @@ public interface GameRepository extends JpaRepository<Game, String> {
 
     @Query("SELECT CASE WHEN COUNT(g) > 0 THEN true ELSE false END FROM Game g WHERE g.name = :name")
     boolean existsByName(@Param("name") String name);
+
+    @Query("SELECT g FROM Game g WHERE g.name LIKE %:query%")
+    List<Game> getGamesByQuery(@Param("query") String query);
 }

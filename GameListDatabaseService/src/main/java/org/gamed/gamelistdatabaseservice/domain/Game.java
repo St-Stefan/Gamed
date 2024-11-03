@@ -34,8 +34,6 @@ public class Game {
         this.platforms = platforms;
     }
 
-    // Getters and setters
-
     public String getId() {
         return id;
     }
