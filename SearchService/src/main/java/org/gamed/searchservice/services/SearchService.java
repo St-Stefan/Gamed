@@ -1,4 +1,4 @@
-package org.gamed.searchservice.service;
+package org.gamed.searchservice.services;
 
 import org.gamed.searchservice.domain.GameDTO;
 import org.gamed.searchservice.models.SearchResponseModel;
