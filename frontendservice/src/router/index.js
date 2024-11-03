@@ -6,6 +6,7 @@ import HomePage from "@/components/home/HomePage.vue";
 import UserPage from "@/components/user_page/UserPage.vue";
 import GamePage from "@/components/user_page/GamePage.vue";
 import ListPage from "@/components/user_page/ListPage.vue";
+import SearchPage from "@/components/search/SearchPage.vue";
 const routes = [
     {
         path: '/',
@@ -34,6 +35,11 @@ const routes = [
         name: 'Login',
         component: AuthenticationPage,
     },
+    {
+        path: '/Search/:query',
+        name: 'Search',
+        component: SearchPage,
+    }
     // Add more routes here
 ];
 

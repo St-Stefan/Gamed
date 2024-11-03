@@ -10,8 +10,6 @@ public class ReviewDTO {
     private LocalDateTime timeCreated;
     private LocalDateTime timeModified;
 
-    // Getters and Setters
-
     public String getId() {
         return id;
     }

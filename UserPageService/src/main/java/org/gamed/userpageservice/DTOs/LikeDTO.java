@@ -20,11 +20,11 @@ public class LikeDTO {
 
     public LikeDTO() {}
 
-    public LikeDTO(String user_id, String item_id, String type) {
+    public LikeDTO(String id, String user_id, String item_id, String type) {
+        this.id = id;
         this.user = user_id;
         this.itemId = item_id;
         this.type = type;
-        this.time = LocalDateTime.now();
     }
 
     public String getId() {

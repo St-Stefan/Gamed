@@ -1,10 +1,14 @@
 package org.gamed.timelineservice.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-
+@Getter
+@Setter
 public class GameListDTO {
     private String id;
 
@@ -46,22 +50,6 @@ public class GameListDTO {
         this.description = description;
     }
 
-    public LocalDateTime getTime_created() {
-        return time_created;
-    }
-
-    public void setTime_created(LocalDateTime time_created) {
-        this.time_created = time_created;
-    }
-
-    public LocalDateTime getTime_modified() {
-        return time_modified;
-    }
-
-    public void setTime_modified(LocalDateTime time_modified) {
-        this.time_modified = time_modified;
-    }
-
     public List<GameDTO> getGames() {
         return games;
     }
@@ -70,9 +58,9 @@ public class GameListDTO {
         this.games = games;
     }
 
-    private LocalDateTime time_created;
+    private LocalDateTime timeCreated;
 
-    private LocalDateTime time_modified;
+    private LocalDateTime timeModified;
 
     private List<GameDTO> games;
 
@@ -81,8 +69,8 @@ public class GameListDTO {
         this.userId = userId;
         this.name = name;
         this.description = description;
-        this.time_created = time_created;
-        this.time_modified = time_modified;
+        this.timeCreated = time_created;
+        this.timeModified = time_modified;
         this.games = games;
     }
 
@@ -109,8 +97,8 @@ public class GameListDTO {
                 ", user=" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", time_created=" + time_created +
-                ", time_modified=" + time_modified +
+                ", time_created=" + timeCreated +
+                ", time_modified=" + timeModified +
                 '}';
     }
 }
