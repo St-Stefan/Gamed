@@ -113,7 +113,7 @@ public class UserToFollowedListService {
     public List<String> getFollowers(String listId) {
         List<UserToFollowedList> followedListEntries = userToFollowedListRepository.findByListId(listId);
         return followedListEntries.stream()
-                .map(UserToFollowedList::getUser) // extract the User from each entry
+                .map(UserToFollowedList::getUser)
                 .collect(Collectors.toList());
     }
 
@@ -126,7 +126,6 @@ public class UserToFollowedListService {
     public List<String> getFollowedLists(String userId) {
         List<UserToFollowedList> followedLists = userToFollowedListRepository.findByUserId(userId);
 
-        // Extract the list IDs from the UserToFollowedList entities
         return followedLists.stream()
                 .map(UserToFollowedList::getListId)
                 .collect(Collectors.toList());

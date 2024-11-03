@@ -33,7 +33,6 @@ public class SearchService {
         }
 
         List<GameDTO> searchResults = response.getBody();
-
         List<SearchResponseModel> results = new ArrayList<>();
         for (GameDTO game : searchResults) {
             results.add(new SearchResponseModel(game));
