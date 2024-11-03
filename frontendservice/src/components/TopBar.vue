@@ -1,36 +1,67 @@
 <!--<template>-->
-<!--  <div class="navbar navbg-base-100 pr-20 pl-20">-->
-<!--    <div class="flex-1">-->
-<!--      <a class="btn btn-ghost text-3xl font-bold">Gamed</a>-->
-<!--    </div>-->
-<!--    <div class="flex-none gap-2">-->
-<!--      <div class="form-control">-->
-<!--        <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />-->
+<!--  <div class="navbar px-20">-->
+<!--    &lt;!&ndash; Left Side: Logo and Search Bar &ndash;&gt;-->
+<!--    <div class="flex-1 flex items-center">-->
+<!--      &lt;!&ndash; Logo &ndash;&gt;-->
+<!--      <router-link :to="{ name: 'Home' }"-->
+<!--                   class="btn btn-ghost text-3xl font-bold">-->
+<!--        Gamed-->
+<!--      </router-link>-->
+
+<!--      &lt;!&ndash; Search Bar &ndash;&gt;-->
+<!--      <div class="ml-8 flex-1">-->
+<!--        <input-->
+<!--            type="text"-->
+<!--            placeholder="Search"-->
+<!--            class="input input-bordered w-full max-w-md"-->
+<!--        />-->
 <!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Right Side: Menu Options and Avatar &ndash;&gt;-->
+<!--    <div class="flex-none flex items-center gap-4">-->
+<!--      &lt;!&ndash; Menu Options &ndash;&gt;-->
+<!--      <router-link :to="{ name: 'UserPage' }"-->
+<!--                   class="btn btn-ghost text-xl normal-case">-->
+<!--        Profile-->
+<!--      </router-link>-->
+<!--      <a class="btn btn-ghost text-xl normal-case" href="#settings">Settings</a>-->
+
+<!--      &lt;!&ndash; Avatar with Logout Dropdown &ndash;&gt;-->
 <!--      <div class="dropdown dropdown-end">-->
-<!--        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">-->
+<!--        <button tabindex="0" class="btn btn-ghost btn-circle avatar">-->
 <!--          <div class="w-10 rounded-full">-->
 <!--            <img-->
-<!--                alt="Tailwind CSS Navbar component"-->
-<!--                src="https://static.wikia.nocookie.net/metalgear/images/b/bc/HideoKojimaInfobox.jpg" />-->
+<!--                alt="User Avatar"-->
+<!--                src="https://static.wikia.nocookie.net/metalgear/images/b/bc/HideoKojimaInfobox.jpg"-->
+<!--            />-->
 <!--          </div>-->
-<!--        </div>-->
+<!--        </button>-->
 <!--        <ul-->
 <!--            tabindex="0"-->
-<!--            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">-->
-<!--          <li>-->
-<!--            <a class="justify-between">-->
-<!--              Profile-->
-<!--              <span class="badge">New</span>-->
-<!--            </a>-->
+<!--            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"-->
+<!--        >-->
+<!--          <li @click="clearStorage()">-->
+<!--            <a>Logout</a>-->
 <!--          </li>-->
-<!--          <li><a>Settings</a></li>-->
-<!--          <li @click="clearStorage()"><a>Logout</a></li>-->
 <!--        </ul>-->
 <!--      </div>-->
 <!--    </div>-->
 <!--  </div>-->
 <!--</template>-->
+
+<!--<script>-->
+<!--export default {-->
+<!--  methods:{-->
+<!--    clearStorage(){-->
+<!--      localStorage.removeItem("GamedUID")-->
+<!--      this.$emit('uidChanged');-->
+<!--    }-->
+<!--  }-->
+<!--}-->
+
+<!--</script>-->
+
 <template>
   <div class="navbar px-20">
     <!-- Left Side: Logo and Search Bar -->
@@ -42,15 +73,13 @@
       </router-link>
 
       <!-- Search Bar -->
-      <div class="ml-8 flex-1">
+      <div class="ml-8 flex-1 form-control">
         <input
             id="search-field"
             type="text"
             placeholder="Search"
-            class="input input-bordered w-full max-w-md"
-            @keyup.enter="search()"
+            class="input input-bordered w-full max-w-md" @keydown.enter="search()" @keyup.enter="search()"
         />
-
       </div>
     </div>
 

@@ -66,7 +66,6 @@ export default {
              })
              .then((data) => {
                this.posts = data;
-               console.log(data)
              })
              .catch((error) => {
                this.error = error.message || 'An error occurred while fetching posts.';
@@ -77,8 +76,6 @@ export default {
        }
     },
     handleSelectPost(post) {
-      // Update the selected user when a post is selected
-      console.log("here")
       this.selectedAuthor = post.user;
     },
   }

@@ -54,13 +54,11 @@ public class UserToPlaytimeService {
             throw new IllegalArgumentException("User ID, Game ID cannot be null and playtime cannot be negative.");
         }
 
-        // Check if the playtime entry exists for the user and the game
         Optional<UserToPlaytime> existingPlaytimeEntry = playtimeRepository.findByUserIdAndGameId(userId, gameId);
         if (existingPlaytimeEntry.isEmpty()) {
             throw new IllegalArgumentException("Playtime entry for the given user and game does not exist.");
         }
 
-        // Update the playtime value
         existingPlaytimeEntry.get().setPlaytime(playtime);
         return playtimeRepository.save(existingPlaytimeEntry.get());
     }

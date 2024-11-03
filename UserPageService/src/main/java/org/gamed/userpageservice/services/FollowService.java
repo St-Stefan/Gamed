@@ -64,7 +64,6 @@ public class FollowService {
 
             gamesInListResponse.getBody().forEach( resp -> {
                 ResponseEntity<GameDTO> gameInfo = null;
-                System.out.println(resp);
                 gameInfo = restTemplate.exchange(
                         "http://localhost:8092/games/" + resp.get("game"),
                         HttpMethod.GET,

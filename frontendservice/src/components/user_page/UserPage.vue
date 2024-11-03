@@ -1,9 +1,10 @@
 <template>
+  <div class="flex-1 overflow-y-auto bg-gImage bg-cover h-screen">
   <div v-if="!loadedUID">
     <AuthenticationPage @uidChanged="getProfile" />
   </div>
 
-  <div v-else class="flex-1 overflow-y-auto bg-gImage bg-cover">
+  <div v-else>
     <div class="sticky top-0 z-10 backdrop-blur-xl drop-shadow-xl bg-base-200/30 border-b border-gray-700">
       <TopBar @uidChanged="getProfile" />
     </div>
@@ -180,7 +181,7 @@
                 </div>
               </div>
               <div v-else>
-                <p>No followed lists.</p>
+                <p>No liked lists.</p>
               </div>
             </div>
           </div>
@@ -220,7 +221,7 @@
                 </div>
               </div>
               <div v-else>
-                <p>No followed lists.</p>
+                <p>No user created lists.</p>
               </div>
             </div>
           </div>
@@ -261,6 +262,7 @@
       </div>
 
     </div>
+  </div>
   </div>
 </template>
 
@@ -304,7 +306,6 @@ export default {
               return response.json();
             })
             .then((data) => {
-              console.log(data);
               this.user = data.userDTO;
               this.likedGames = data.likedGames;
               this.likedLists = data.likedLists;

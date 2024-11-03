@@ -16,7 +16,6 @@ class GameListDTOToPostAdapterTest {
 
     @Test
     void testConvertBasicFields() {
-        // Arrange
         String id = "1";
         String userId = "user1";
         String name = "Game List Title";
@@ -76,7 +75,7 @@ class GameListDTOToPostAdapterTest {
         assertEquals("Test Game", post.getGames().get(0).getName());
         assertEquals("Game Dev", post.getGames().get(0).getDeveloper());
         assertEquals("PC, Console", post.getGames().get(0).getPlatforms());
-        assertEquals(LocalDateTime.of(2023, 5, 20, 0, 0), post.getGames().get(0).getRelease_date());
+        assertEquals(LocalDateTime.of(2023, 5, 20, 0, 0), post.getGames().get(0).getReleaseDate());
     }
 
     @Test

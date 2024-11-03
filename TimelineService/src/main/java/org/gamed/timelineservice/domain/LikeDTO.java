@@ -1,7 +1,12 @@
 package org.gamed.timelineservice.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class LikeDTO {
     private String id;
 
