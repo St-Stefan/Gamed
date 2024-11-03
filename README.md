@@ -46,7 +46,7 @@ must be done by sending requests through Postman.
 
 ## Visuals
 
-{{<image file="TimelineVisualForREADME.png" caption="A screenshot of the timeline">}}
+![A screenshot of the timeline](TimelineVisualForREADME.png)
 
 We present a screenshot of the timeline the user that was logged in had. As the user follows 2 other users, John and Jane Doe, their activity
 is displayed on our timeline. In this case, it is Jane liking a game, Minecraft 2, and a game list that John had created. When John created
@@ -62,12 +62,17 @@ our user interface. They all include the logic for allowing communication betwee
 include logic for communicating with the frontend. We list them below:
 
 `User Database Microservice` - holds a repository for all users and the databases for user interactions (following a user or a list, liking a list, post, or game);
+
 `Game-List Database Microservice` - holds a different repository for games, game lists, and tags, and different repositories for the games in lists, as well, as the tags associated with games or lists;
+
 `Review Database Microservice` - holds a different repository for reviews, ratings, and comments;
+
 `Timeline Microservice` - requests the necessary information to correctly display the timeline of the logged user in the user interface; this
 represents showing new activity from users or lists they follow;
+
 `User Page Microservice` - requests the necessary information to correctly display the user page of a user; this represents showing
 followers, followed users and lists, liked lists and games, the user's own created lists, and the user's playtime on their games;
+
 `Search Microservice` - handles searching for games in the user interface through the search box, situated in the top bar of any page of
 Gamed's user interface.
 
