@@ -33,7 +33,7 @@ Currently, the project contains nine microservices. Seven are fully working, whi
 contain placeholder spring boot services. 
 
 The three microservices without databases (`Timeline`, `UserPage`, and `Search`) are started
-by running the ServiceApplication classes. They are held in each of these services' module in the `src.main.java.org.gamed.<service>` package. 
+by running the ServiceApplication classes. They are held in each of these services' module in the `src.main.java.org.gamed.<service_name>` package. 
 
 The three microservices holding databases (`GameListDatabase`, `UserDatabase`, and `ReviewDatabase`) are dockerized. You can start any dockerized microservice by heading in the service's module and running:
 
@@ -50,7 +50,7 @@ Lastly, the frontend service is started by running `npm run build` and then `npm
 
 To use the user interface, after starting all microservices and the frontend application, navigate to `localhost:5173`. From there,
 create a new user, and then you will be able to navigate the application. Performing any actions (such as following a user or liking a game)
-must be done by sending requests through Postman.
+must be done by sending requests through Postman. The list of possible requests is presented in the [API Gateway](#api-gateway) section.
 
 ## Visuals
 
@@ -110,6 +110,114 @@ To conduct this experiment, we followed these steps:
 2) We then closed the timeline service and observed the rest of the application. It functioned perfectly, and the only unresponsive component of the UI was the timeline.
 3) We then sent a request through another microservice that had one of the followed users like a game. Since they had just liked it, refreshing the timeline to update it would show us the new activity at the top.
 4) We then verified this happens correctly by restarting the timeline microservice. It had correctly displayed the new data, and no errors took place when restarting it. The rest of the application continued to function without problems.
+
+## API Gateway
+`GameListDatabaseService`
+- Game Controller
+  - 8092/games/create (POST)
+  - 8092/games/update/{gameId} (PUT)
+  - 8092/games/{gameId} (GET)
+  - 8092/games/all (GET)
+  - 8092/games/search/{query} (GET)
+  - 8092/games/delete/{gameId} (DELETE)
+- Game Lists Controller
+  - 8092/lists/create (POST) 
+  - 8092/lists/update/{listId} (PUT)
+  - 8092/lists/{listId} (GET) 
+  - 8092/lists/delete/{listId} (DELETE) 
+  - 8092/lists/user/{userId} (GET) 
+  - 8092/lists/all (GET) 
+- Game to Tag Controller
+  - 8092/gameToTags/create (POST)
+  - 8092/gameToTags/{gameToTagId} (GET)
+  - 8092/gameToTags/all (GET) 
+  - 8092/gameToTags/delete/{gameToTagId} (DELETE)
+- List to Game Controller
+  - 8092/listToGames/create (POST) 
+  - 8092/listToGames/{listToGameId} (GET)
+  - 8092/listToGames/all (GET) 
+  - 8092/listToGames/delete/{listToGameId} (DELETE)
+  - 8092/listToGames/list/{listId} (GET)
+- List to Tag Controller
+  - 8092/listToTags/create (POST) 
+  - 8092/listToTags/{listToTagId} (GET)
+  - 8092/listToTags/all (GET) 
+  - 8092/listToTags/delete/{listToTagId} (DELETE)
+- Tags Controller
+  - 8092/tags/create (POST)
+  - 8092/tags/{tagId} (GET)
+  - 8092/tags/all (GET) 
+  - 8092/tags/delete/{tagId} (DELETE) 
+
+
+`UserDatabaseService`
+- User Controller
+  - 8090/users/create (POST)
+  - 8090/users/update/{userId} (PUT)
+  - 8090/users/{userId} (GET)
+  - 8090/users/all (GET)
+  - 8090/users/delete/{userId} (DELETE)
+- User to Followed List Controller
+  - 8090/user/followed-lists/follow (POST)
+  - 8090/user/followed-lists/unfollow (DELETE)
+  - 8090/user/followed-lists/{userId}/following (GET)
+  - 8090/user/followed-lists/{listId}/followers (GET)
+  - 8090/user/followed-lists/is-following (GET)
+- User to Followed User Controller
+  - 8090/user/followed-users/follow (POST)
+  - 8090/user/followed-users/unfollow (DELETE)
+  - 8090/user/followed-users/{userId}/following (GET)
+  - 8090/user/followed-users/{userId}/followers (GET)
+  - 8090/user/followed-users/is-following (GET)
+- User to Like Controller
+  - 8090/user/likes/like (POST)
+  - 8090/user/likes/unlike (DELETE)
+  - 8090/user/likes/{userId}/liked-items (GET)
+  - 8090/user/likes/{itemId}/likers (GET)
+  - 8090/user/likes/is-liking (GET)
+- User to Playtime Controller
+  - 8090/user/playtime/record (POST)
+  - 8090/user/playtime/update (PUT) 
+  - 8090/user/playtime/{userId}/game/{gameId} (GET)
+  - 8090/user/playtime/{userId}/records (GET)
+  - 8090/user/playtime/delete (DELETE)
+
+
+`ReviewDatabaseService`
+- Comment Controller
+  - 8091/comments/create (POST)
+  - 8091/comments/update/{commentId} (PUT)
+  - 8091/comments/{commentId} (GET)
+  - 8091/comments/all/{parentId} (GET) - parentId is either the ID of a review or a user
+  - 8091/comments/delete/{commentId}
+- Rating Controller
+  - 8091/ratings/create/{reviewId} (POST)
+  - 8091/ratings/update/{ratingId} (PUT)
+  - 8091/ratings/{ratingId} (GET) 
+  - 8091/ratings/review/{reviewId} (GET) 
+  - 8091/ratings/delete/{ratingId} (DELETE)
+- Review Controller
+  - 8091/reviews/create (POST)
+  - 8091/reviews/update/{reviewId} (PUT)
+  - 8091/reviews/{reviewId} (GET)
+  - 8091/reviews/game/{gameId} (GET)
+  - 8091/reviews/user/{userId} (GET)
+  - 8091/reviews/delete/{reviewId} (DELETE)
+
+
+`UserPageService`
+  - User Page Controller
+    - 8084/user_page/{userId} (GET)
+
+
+`TimelineService`
+  - FrontEnd Controller
+    - 8083/home/{userId} (GET)
+
+
+`SearchService`
+  - FrontEnd Controller
+    - 8082/search/{query} (GET)
 
 ## Contributing
 We are open to any suggestions you might have on the functionality or code of Gamed, however at this time we will not be accepting any third-party commits on our repo.
