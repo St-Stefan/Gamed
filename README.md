@@ -29,7 +29,13 @@ This project requires docker to be installed. You can do so via the command line
     
     `brew install docker`
 
-Currently, the project only contains placeholder spring boot services and dockerized database microservices. You can run any dockerized database via:
+Currently, the project contains nine microservices. Seven are fully working, while two, the recommender and review writer services, only
+contain placeholder spring boot services. 
+
+The three microservices without databases (`Timeline`, `UserPage`, and `Search`) are started
+by running the ServiceApplication classes. They are held in each of these services' module in the `src.main.java.org.gamed.<service>` package. 
+
+The three microservices holding databases (`GameListDatabase`, `UserDatabase`, and `ReviewDatabase`) are dockerized. You can start any dockerized microservice by heading in the service's module and running:
 
     mvn clean package
     docker compose up
@@ -39,6 +45,8 @@ If anything fails while running `docker compose up`, rerun the command and every
 Remember to close the images by using: 
 
     docker compose down
+
+Lastly, the frontend service is started by running `npm run build` and then `npm run dev`. This opens up a connection to `localhost:5173`.
 
 To use the user interface, after starting all microservices and the frontend application, navigate to `localhost:5173`. From there,
 create a new user, and then you will be able to navigate the application. Performing any actions (such as following a user or liking a game)
