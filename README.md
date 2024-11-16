@@ -1,5 +1,3 @@
-### Team 65
-
 # Gamed
 A social game curation platform.
 
@@ -13,9 +11,9 @@ Gamed is a curated, community-driven platform specifically designed for video ga
 Gamed is designed to provide a personalized and social gaming experience. Users can discover new games based on similar player preferences, offer detailed feedback on different aspects of a game, and creatively share their gaming tastes in a meaningful way.
 
 ## Installation
-1. Clone the project via Gitlab:
+1. Clone the project via SSH:
 
-    `git clone git@gitlab.ewi.tudelft.nl:cs4505/2024-2025/teams/team-65.git`
+    `git clone git@github.com:St-Stefan/Gamed.git`
 
 2. Or download the source files from the available releases
 
@@ -56,18 +54,14 @@ must be done by sending requests through Postman. The list of possible requests 
 
 ![A screenshot of the timeline](TimelineVisualForREADME.png)
 
-We present a screenshot of the timeline the user that was logged in had. As the user follows 2 other users, John and Jane Doe, their activity
-is displayed on our timeline. In this case, it is Jane liking a game, Minecraft 2, and a game list that John had created. When John created
-the list, he added 2 games to it, Minecraft 2 and FIFA 59. The top bar allows searching for games through the search bar, going to your
-user page by clicking on `Profile`, and going back to the timeline by clicking on `Gamed`. Clicking on a post will show you shortly information
-about the user that had the recent activity. Clicking on the top right icon allows you to log out. Logging out will prompt you back to a login page. 
-Lastly, for ease of use and accessibility, the top bar is displayed on all pages of Gamed.
+The top bar allows searching for games through the search bar, going to your
+user page by clicking on `Profile`, and going back to the timeline by clicking on `Gamed`. Clicking on a post will show you information
+about the user that posted the activity. Clicking on the top right icon allows you to log out. Logging out will direct you back to a login page. 
 
 ## Microservices
-To implement Gamed, we chose to follow a Microservices architecture. To this end, for our proof of concept we have implemented 6 microservices.
-Out of them, 3 microservices contain the logic for our databases, while the other 3 contain the logic for the different components on
-our user interface. They all include the logic for allowing communication between them, and the 3 microservices with no databases also
-include logic for communicating with the frontend. We list them below:
+To implement Gamed, we chose to follow a Microservices architecture. To this end, for our POC we have implemented 6 microservices.
+Out of them, 3 microservices contain logic for our databases, while the other 3 contain logic for the different components of
+our user interface. Below is a list of all databeses currently in the codebase:
 
 `User Database Microservice` - holds a repository for all users and the databases for user interactions (following a user or a list, liking a list, post, or game);
 
@@ -84,32 +78,6 @@ followers, followed users and lists, liked lists and games, the user's own creat
 `Search Microservice` - handles searching for games in the user interface through the search box, situated in the top bar of any page of
 Gamed's user interface.
 
-## Conducted Experiments
-We have conducted 2 experiments regarding our key quality choices, to ensure the proof of concept satisfies them. They allow us to 
-assert the system is working correctly and adheres to the principles of the architecture we have chosen, microservices.
-
-### Experiment 1: Testability
-Through this experiment, we ensure both that our application can be tested and that it works as intended. This also lets the user know
-the system works correctly, and therefore can use the application without problems.
-
-
-We conducted this experiment by fully testing the microservices holding databases, as the core functionality is dispersed throughout repositories,
-services, and controllers. As such, we wanted to fully test all of them. For the microservices that do not hold databases, the core functionality
-was only in the service classes. The controllers only have one endpoint that makes use only of the service classes and as such, we only
-tested the service classes. The entities and DTOs are trivial to test, and as such were left out. One can observe the coverage of our tests
-by heading into the respective module of a microservice, and then navigating to the `test` package. Then, the person can choose to `run tests
-with coverage`, revealing the coverage of the classes.
-
-### Experiment 2: Modularity
-Through this experiment, we prove that our microservices architecture is valid and that it adheres to the principles of a correct microservices
-architecture. It aims to show that one failing service will not cause the whole application to fail. Upon restart, it will correctly display data, including any updates made by other active microservices during its downtime.
-
-
-To conduct this experiment, we followed these steps:
-1) We started logged in as an existing user which already had other users that they followed. Since they follow other users, the activity of those other users is displayed on our timeline.
-2) We then closed the timeline service and observed the rest of the application. It functioned perfectly, and the only unresponsive component of the UI was the timeline.
-3) We then sent a request through another microservice that had one of the followed users like a game. Since they had just liked it, refreshing the timeline to update it would show us the new activity at the top.
-4) We then verified this happens correctly by restarting the timeline microservice. It had correctly displayed the new data, and no errors took place when restarting it. The rest of the application continued to function without problems.
 
 ## API Gateway
 `GameListDatabaseService`
