@@ -46,10 +46,11 @@ docker_build:
   rules:
     - if: '$DOCKER_BUILD_ENABLED == "true"'
   script:
+    - mvn clean package
     - docker-compose build
     - docker-compose up -d
     - docker-compose down
   dependencies:
-    - build
+    - build-job
 
 
