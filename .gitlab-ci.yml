@@ -2,6 +2,7 @@ image: maven:3.9.9-amazoncorretto-21
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  DOCKER_BUILD_ENABLED: "false"
 
 cache:
   paths:
@@ -12,6 +13,7 @@ stages:
   - validate
   - build
   - test
+  - docker_build
 
 checkstyle-job:
   stage: validate
@@ -35,4 +37,19 @@ integration-test-job:
   stage: test
   script:
     - mvn verify -Pskip-unit-tests
+
+docker_build:
+  image: docker:27.3.1
+  services:
+    - docker:dind
+  stage: docker_build
+  rules:
+    - if: '$DOCKER_BUILD_ENABLED == "true"'
+  script:
+    - docker-compose build
+    - docker-compose up -d
+    - docker-compose down
+  dependencies:
+    - build
+
 
